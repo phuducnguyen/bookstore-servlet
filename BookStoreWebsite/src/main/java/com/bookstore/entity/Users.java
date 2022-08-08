@@ -15,9 +15,24 @@ public class Users {
 	private String fullName;
 	private String password;
 	
-	@Column(name = "user_id")
+	public Users() {
+	}
+
+	public Users(Integer userId, String email, String fullName, String password) {
+		this(email, fullName, password);
+		this.userId = userId;
+	}
+	
+	public Users(String email, String fullName, String password) {
+		super();
+		this.email = email;
+		this.fullName = fullName;
+		this.password = password;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	public Integer getUserId() {
 		return userId;
 	}
