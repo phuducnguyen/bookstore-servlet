@@ -1,6 +1,7 @@
 package com.bookstore.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 // Generated Aug 2, 2022, 12:56:09 AM by Hibernate Tools 5.6.3.Final
@@ -29,6 +30,7 @@ public class OrderDetail implements java.io.Serializable {
 		this.bookOrder = bookOrder;
 	}
 
+	@Id
 	public OrderDetailId getId() {
 		return this.id;
 	}
