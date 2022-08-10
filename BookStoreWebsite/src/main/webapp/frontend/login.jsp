@@ -4,16 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Evergreen Books - Online Books Store</title>
+<title>Login</title>
 </head>
 <body>
+	<!-- TODO: The Logo image will not be loaded correctly -->
 	<jsp:directive.include file="header.jsp" />
 	
 	<div align="center">
-		<h3>This is main content</h3>
-		<h2>New Books</h2>
-		<h2>Best-Selling Books</h2>
-		<h2>Most-Favored Books</h2>
+		<h2>PLEASE LOGIN</h2>
+		<form>
+			Email: <input type="text" size="10" />
+			<br/>
+			Password: <input type="password" size="10" />
+			<input type="submit" value="Login" /> 
+		</form>
 	</div>
 	
 	<jsp:directive.include file="footer.jsp" />
