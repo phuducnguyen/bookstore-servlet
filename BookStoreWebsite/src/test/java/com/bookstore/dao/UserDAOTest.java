@@ -35,8 +35,8 @@ public class UserDAOTest {
 	@Test
 	public void testCreateUsers() {
 		Users user = new Users();
-		user.setEmail("marvin@email.com");
-		user.setFullName("Marvin Ng");
+		user.setEmail("michele@email.com");
+		user.setFullName("Michele Barfety");
 		user.setPassword("79797979");
 			
 		user = userDAO.create(user);
@@ -55,7 +55,7 @@ public class UserDAOTest {
 	public void testUpdateUsers() {
 		Users user = new Users();
 		user.setUserId(20);
-		user.setEmail("jarvis@system.com");
+		user.setEmail("jarvis@system.net");
 		user.setFullName("J.A.R.V.I.S");
 		user.setPassword("mysecret");
 		
