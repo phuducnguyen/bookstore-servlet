@@ -47,13 +47,18 @@
 	
 	<jsp:directive.include file="footer.jsp" />
 	
-	<!-- Which diff from above and below script tag? -->
 	<script>
 		function confirmDelete(userId) {
-			if (confirm('Are you sure you want to delete the user with ID ' + userId + '?')) {
-				window.location = 'delete_user?id=' + userId;	
-			}
-			
+			// Prevent the default admin user via client-side
+			// This bypasses any client-side checking,
+			// so it should be implemented on the server side (Java Servlet) for security.
+			if (userId == 1) {
+				alert('The default admin user account cannot be deleted');
+			} else {
+				if (confirm('Are you sure you want to delete the user with ID ' + userId + '?')) {
+					window.location = 'delete_user?id=' + userId;	
+				}	
+			}		
 		}
 	</script>
 </body>
