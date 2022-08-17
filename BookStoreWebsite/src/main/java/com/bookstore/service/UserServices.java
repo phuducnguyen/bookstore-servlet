@@ -77,7 +77,6 @@ public class UserServices {
 		
 		String destPage = "user_form.jsp";
 		
-
 		// Prevent Edit user which has been deleted
 		if (user == null) {
 			destPage = "message.jsp";
@@ -100,8 +99,6 @@ public class UserServices {
 		Users userById = userDAO.get(userId);	
 		Users userByEmail = userDAO.findByEmail(email);
 		
-		// Check that email available to updating 
-		// User does exist and it is different than currently editing user
 		if (userByEmail != null && userByEmail.getUserId() != userById.getUserId()) {
 			String message = "Could not update user. User with email " + email + " already exists.";
 			request.setAttribute("message", message);
@@ -119,9 +116,17 @@ public class UserServices {
 
 	public void deteleUser() throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("id"));
-		userDAO.delete(userId);
-		
 		String message = "User has been deleted successfully";
+		
+		Users user = userDAO.get(userId);
+		
+		if (user == null) {
+			message = "Could not find user with ID " + userId
+						+ ", or it might have been deleted by another admin.";
+		} else {
+			userDAO.delete(userId);			
+		}
+		
 		listUser(message);
 	}
 }
