@@ -22,7 +22,16 @@
 	</div>
 	
 	<div align="center">
-		<form action="create_user" method="post" onsubmit="return validateFormInput()">
+		<!-- THE EDIT MODE ACTION-->
+		<c:if test="${user != null}">
+			<form action="update_user" method="post" onsubmit="return validateFormInput()">
+			<input type="hidden" name="userId" value="${user.userId}">
+		</c:if>
+		<!-- THE CREATE MODE ACTION -->
+		<c:if test="${user == null}">
+			<form action="create_user" method="post" onsubmit="return validateFormInput()">
+		</c:if>
+		
 		<table>
 			<tr>
 				<td align="right">Email:</td>

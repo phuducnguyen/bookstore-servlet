@@ -75,10 +75,45 @@ public class UserServices {
 		Integer userId = Integer.parseInt(request.getParameter("id"));
 		Users user = userDAO.get(userId);
 		
-		String editPage = "user_form.jsp";
-		request.setAttribute("user", user);
+		String destPage = "user_form.jsp";
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
+
+		// Prevent Edit user which has been deleted
+		if (user == null) {
+			destPage = "message.jsp";
+			String errorMessage = "Could not find user with " + userId;
+			request.setAttribute("message", errorMessage);
+		} else {
+			request.setAttribute("user", user);
+		}
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
 		requestDispatcher.forward(request, response);
+	}
+
+	public void updateUser() throws ServletException, IOException {
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		String email = request.getParameter("email");
+		String fullName = request.getParameter("fullname");
+		String password = request.getParameter("password");
+		
+		Users userById = userDAO.get(userId);	
+		Users userByEmail = userDAO.findByEmail(email);
+		
+		// Check that email available to updating 
+		// User does exist and it is different than currently editing user
+		if (userByEmail != null && userByEmail.getUserId() != userById.getUserId()) {
+			String message = "Could not update user. User with email " + email + " already exists.";
+			request.setAttribute("message", message);
+		
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			requestDispatcher.forward(request, response);
+		} else {
+			Users user = new Users(userId, email, fullName, password);
+			userDAO.update(user);
+			
+			String message = "User has been updated successfully";
+			listUser(message);
+		}
 	}
 }
