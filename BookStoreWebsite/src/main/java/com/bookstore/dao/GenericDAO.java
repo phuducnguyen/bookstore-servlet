@@ -2,17 +2,17 @@ package com.bookstore.dao;
 
 import java.util.List;
 
-public interface GenericDAO<T> {
+public interface GenericDAO<E> {
 	
-	public T create(T t);
+	public E create(E entity);
 	
-	public T update(T t);
+	public E update(E entity);
 	
-	public T get(Object id);
+	public E get(Object id);
 	
 	public void delete(Object id);
 	
-	public List<T> listAll();
+	public List<E> listAll();
 	
 	public long count();
 	

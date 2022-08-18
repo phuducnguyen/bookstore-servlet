@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,6 +21,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "category", catalog = "bookstoredb")
+@NamedQueries({
+	@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.name"),
+	@NamedQuery(name = "Category.countAll", query = "SELECT COUNT(*) FROM Category")
+})
 public class Category implements java.io.Serializable {
 
 	private Integer categoryId;
