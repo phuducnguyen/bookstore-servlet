@@ -110,4 +110,14 @@ public class CategoryServices {
 			listCategory(message);
 		}
 	}
+
+	public void deleteCategory() throws ServletException, IOException {
+		int categoryId = Integer.parseInt(request.getParameter("id"));
+		categoryDAO.delete(categoryId);
+		
+		// TODO: Checking for Books belong to a Category
+		// We cannot delete that Category
+		String message = "The category " + categoryId + "has been removed successfully.";
+		listCategory(message);
+	}
 }
