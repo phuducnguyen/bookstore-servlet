@@ -77,7 +77,7 @@ public class UserServices {
 		
 		String destPage = "user_form.jsp";
 		
-		// Prevent Edit user which has been deleted
+		// Forward to Error Page when not found the User
 		if (user == null) {
 			destPage = "message.jsp";
 			String errorMessage = "Could not find user with " + userId;
