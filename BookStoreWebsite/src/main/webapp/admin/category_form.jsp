@@ -26,7 +26,9 @@
 		<!-- THE EDIT MODE ACTION-->
 		<c:if test="${category != null}">
 			<form action="update_category" method="post" onsubmit="return validateFormInput()">
-			<input type="hidden" name="userId" value="${user.userId}">
+			
+			<!-- Get Category ID for POST API -->
+			<input type="hidden" name="categoryId" value="${category.categoryId}">
 		</c:if>
 		<!-- THE CREATE MODE ACTION -->
 		<c:if test="${category == null}">
@@ -54,10 +56,10 @@
 </body>
 <script type="text/javascript">
 	function validateFormInput() {
-		var fieldName = document.getElementById("email");
+		var fieldName = document.getElementById("name");
 		
 		if (fieldName.value.length == 0) {
-			alert("Email is required!");
+			alert("Name is required!");
 			fieldName.focus();
 			return false;
 		}
