@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+/* CSS Rules */
+
+/* Header */
+#headermenu {
+	 display: table;
+}
+
+#headermenu div {
+	display: table-cell; 
+	padding-right: 20px;
+}
+
+/* Hyperlinks */
+a:link {
+	color: cornflowerBlue;
+	text-decoration: none;
+}
+
+a:visited {
+	color: indigo;
+}
+
+a:hover {
+	color: blue;
+}
+
+a:active {
+	color: red;
+}
+
+#headermenu a:link {
+	font-size: larger;
+}
+
+/* Headings */
+.pageheading {
+	color: darkblue;
+}
+
+/* Table */
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 8px;
+}
+
+th {
+	background: darkblue;
+	color: cornsilk;
+	font-size: larger;
+}
+
+/* Form fields */
+table.form {
+	border: 0;
+	padding: 4px;
+}
+
+input {
+	border: 1px solid;
+	border-radius: 4px;
+	border-color: green;
+	height: 20px;
+}
+
+/* Buttons */
+button {
+	padding: 6px;
+	border-radius: 5px;
+}
+
+button[type=submit] {
+	font-weight: bold;
+}
+
+button:hover {
+	background-color: white;
+	color: green;
+}
+
+/* Text */
+.message {
+	font-style: italic;
+	color: blue;
+}
