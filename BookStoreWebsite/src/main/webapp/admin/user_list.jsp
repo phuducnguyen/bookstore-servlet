@@ -7,6 +7,8 @@
 	<meta charset="UTF-8">
 	<title>Manage Users | Evergreen Admin</title>
 	<link rel="stylesheet" href="../css/style.css" >
+	<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
@@ -39,7 +41,7 @@
 				<td>${user.fullName}</td>
 				<td>
 					<a href="edit_user?id=${user.userId}">Edit</a> &nbsp;
-					<a href="javascript:confirmDelete(${user.userId})">Delete</a>
+					<a href="javascript:void(0);" class="deleteLink" id="${user.userId}">Delete</a>
 				</td>
 			</tr>
 			</c:forEach>
@@ -49,16 +51,21 @@
 	<jsp:directive.include file="footer.jsp" />
 	
 	<script>
+		$(document).ready(function() {
+			// Handle click event of Delete link
+			$(".deleteLink").each(function() {
+				$(this).on("click", function() {
+					userId = $(this).attr("id");
+					if (confirm('Are you sure you want to delete the user with ID ' + userId + '?')) {
+						window.location = 'delete_user?id=' + userId;
+					}
+				});
+			});
+		});
+	
 		function confirmDelete(userId) {
-			// Prevent the default admin user via client-side
-			// This bypasses any client-side checking,
-			// so it should be implemented on the server side (Java Servlet) for security.
-			if (userId == 1) {
-				alert('The default admin user account cannot be deleted');
-			} else {
-				if (confirm('Are you sure you want to delete the user with ID ' + userId + '?')) {
-					window.location = 'delete_user?id=' + userId;	
-				}	
+			if (confirm('Are you sure you want to delete the user with ID ' + userId + '?')) {
+				window.location = 'delete_user?id=' + userId;	
 			}		
 		}
 	</script>

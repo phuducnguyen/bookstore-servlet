@@ -6,6 +6,8 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../css/style.css" >
+	<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 
@@ -25,14 +27,14 @@
 	<div align="center">
 		<!-- THE EDIT MODE ACTION-->
 		<c:if test="${category != null}">
-			<form action="update_category" method="post" onsubmit="return validateFormInput()">
+			<form action="update_category" method="post" id="categoryForm">
 			
 			<!-- Get Category ID for POST API -->
 			<input type="hidden" name="categoryId" value="${category.categoryId}">
 		</c:if>
 		<!-- THE CREATE MODE ACTION -->
 		<c:if test="${category == null}">
-			<form action="create_category" method="post" onsubmit="return validateFormInput()">
+			<form action="create_category" method="post" id="categoryForm">
 		</c:if>
 		
 		<table class="form">
@@ -44,7 +46,7 @@
 			<tr>
 				<td colspan="2" align="center">
 					<button type="submit">Save</button>
-					<button onclick="javascript:history.back();">Cancel</button> 
+					<button id="buttonCancel">Cancel</button> 
 				</td>
 			</tr>
 		</table>
@@ -55,16 +57,23 @@
 	
 </body>
 <script type="text/javascript">
-	function validateFormInput() {
-		var fieldName = document.getElementById("name");
+// JQuery specify
+$(document).ready(function() {
+	// Validate Form's Input
+	$("#categoryForm").validate({
+		rules: {
+			name: "required",
+		},
 		
-		if (fieldName.value.length == 0) {
-			alert("Name is required!");
-			fieldName.focus();
-			return false;
+		messages: {
+			name: "Please enter category name",
 		}
-		
-		return true;
-	}
+	});
+	
+	// Handle click event of Cancel button in the form
+	$("#buttonCancel").click(function() {
+		history.back();
+	});
+});
 </script>
 </html>

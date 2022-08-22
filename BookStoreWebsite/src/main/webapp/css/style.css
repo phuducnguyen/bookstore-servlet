@@ -88,3 +88,11 @@ button:hover {
 	font-style: italic;
 	color: blue;
 }
+
+/* Error class */
+.error {
+	color: red;
+	font-style: italic;
+	margin: 5px;
+}
+	

@@ -125,7 +125,7 @@ public class CategoryServices {
 			return;
 		} else {	
 			categoryDAO.delete(categoryId);
-			message = "The category " + categoryId + "has been removed successfully.";			
+			message = "The category " + categoryId + " has been removed successfully.";			
 		}
 		// TODO: Checking for Books belong to a Category
 		// We cannot delete that Category
