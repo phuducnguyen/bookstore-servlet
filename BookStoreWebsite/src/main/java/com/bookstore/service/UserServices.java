@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookstore.dao.HashGeneratorUtils;
 import com.bookstore.dao.UserDAO;
 import com.bookstore.entity.Users;
 
@@ -81,6 +82,10 @@ public class UserServices {
 			String errorMessage = "Could not find user with " + userId;
 			request.setAttribute("message", errorMessage);
 		} else {
+			// Set the password as null to make the password is left blank by default
+			// if left blank, the user's password won't be updated
+			// this is to work with the encrypted password feature
+			user.setPassword(null);
 			request.setAttribute("user", user);
 		}
 		
@@ -94,7 +99,8 @@ public class UserServices {
 		String fullName = request.getParameter("fullname");
 		String password = request.getParameter("password");
 		
-		Users userById = userDAO.get(userId);	
+		Users userById = userDAO.get(userId);
+		
 		Users userByEmail = userDAO.findByEmail(email);
 		
 		if (userByEmail != null && userByEmail.getUserId() != userById.getUserId()) {
@@ -104,8 +110,17 @@ public class UserServices {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
 			requestDispatcher.forward(request, response);
 		} else {
-			Users user = new Users(userId, email, fullName, password);
-			userDAO.update(user);
+			userById.setEmail(email);
+			userById.setFullName(fullName);
+			
+			// Save encrypted password
+			if (password != null && !password.isEmpty()) {
+				String encryptedPassword = HashGeneratorUtils.generateSHA256(password);
+			
+				userById.setPassword(encryptedPassword);
+			}
+			
+			userDAO.update(userById);
 			
 			String message = "User has been updated successfully";
 			listUser(message);
@@ -114,18 +129,30 @@ public class UserServices {
 
 	public void deteleUser() throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("id"));
+		
 		String message = "User has been deleted successfully";
+		
+		if (userId == 1) {
+			message = "The default admin user account cannot be deleted.";
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("message.jsp").forward(request, response);
+			return;
+		}
 		
 		Users user = userDAO.get(userId);
 		
 		if (user == null) {
 			message = "Could not find user with ID " + userId
 						+ ", or it might have been deleted by another admin.";
-		} else {
-			userDAO.delete(userId);			
-		}
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("message.jsp").forward(request, response);
 		
-		listUser(message);
+		} else {
+			userDAO.delete(userId);	
+			listUser(message);
+		}
 	}
 	
 	public void login() throws ServletException, IOException {

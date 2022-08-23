@@ -67,6 +67,20 @@ public class UserDAOTest extends BaseDAOTest {
 	}
 	
 	@Test
+	public void testUpdateUsersEncryptedPassword() {
+		Integer userId = 20;
+		Users user = userDAO.get(userId);
+		
+		String password = user.getPassword();
+		String encryptedPassword = HashGeneratorUtils.generateSHA256(password);
+		
+		user.setPassword(encryptedPassword);
+		user = userDAO.update(user);
+		
+		assertEquals(encryptedPassword, user.getPassword());
+	}
+	
+	@Test
 	public void testGetUsersFound() {
 		Integer userId = 20;
 		Users user = userDAO.get(userId);

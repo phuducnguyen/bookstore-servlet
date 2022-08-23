@@ -73,7 +73,10 @@
 				},
 				
 				fullname: "required",
+				
+				<c:if test="${user == null}">
 				password: "required"
+				</c:if>
 			},
 			
 			messages: {
@@ -83,7 +86,10 @@
 				},
 				
 				fullname: "Please enter full name",
+				
+				<c:if test="${user == null}">
 				password: "Please enter password"
+				</c:if>
 			}
 		});
 		
