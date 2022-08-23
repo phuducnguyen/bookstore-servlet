@@ -1,6 +1,7 @@
 package com.bookstore.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -125,5 +126,23 @@ public class UserDAOTest extends BaseDAOTest {
 		Users user = userDAO.findByEmail(email);
 		
 		assertNotNull(user);
-	}	
+	}
+	
+	@Test
+	public void testCheckLoginSuccess() {
+		String email = "michele@email.com";
+		String password = "79797979";
+		boolean loginResult = userDAO.checkLogin(email, password);
+	
+		assertTrue(loginResult);
+	}
+	
+	@Test
+	public void testCheckLoginFailed() {
+		String email = "michele@email.com";
+		String password = "mysecret";
+		boolean loginResult = userDAO.checkLogin(email, password);
+	
+		assertFalse(loginResult);
+	}
 }
