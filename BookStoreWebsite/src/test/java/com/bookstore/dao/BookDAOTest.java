@@ -10,6 +10,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -98,9 +100,18 @@ public class BookDAOTest extends BaseDAOTest {
 		fail("Not yet implemented");
 	}
 
+	@Test(expected = EntityNotFoundException.class)
+	public void testDeleteBookFail() {
+		Integer bookId = 100;
+		bookDAO.delete(bookId);
+	}
+	
 	@Test
-	public void testDeleteObject() {
-		fail("Not yet implemented");
+	public void testDeleteBookSuccess() {
+		Integer bookId = 1;
+		bookDAO.delete(bookId);
+		
+		assertTrue(true);
 	}
 
 	@Test
