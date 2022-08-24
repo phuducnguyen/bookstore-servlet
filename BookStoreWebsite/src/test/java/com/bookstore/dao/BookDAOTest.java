@@ -63,8 +63,34 @@ public class BookDAOTest extends BaseDAOTest {
 	}
 
 	@Test
-	public void testUpdateBook() {
-		fail("Not yet implemented");
+	public void testUpdateBook() throws IOException, ParseException {
+		Book existBook = new Book();
+		existBook.setBookId(1);
+		
+		Category category = new Category("Java Core");
+		category.setCategoryId(2);
+		existBook.setCategory(category);
+		
+		existBook.setTitle("Effective Java (3rd Edition)");
+		existBook.setAuthor("Joshua Bloch");
+		existBook.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+		existBook.setPrice(40f);
+		existBook.setIsbn("0321356683");
+				
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Date publishDate = dateFormat.parse("05/28/2008");
+		existBook.setPublishDate(publishDate);
+		
+		// Get Image's URI manually
+		String imagePath = "/home/martin/dummy-data-books/books/Effective Java.jpg";
+		
+		// Read all the bytes from a Image file
+		byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
+		existBook.setImage(imageBytes);
+		
+		Book updatedBook = bookDAO.update(existBook);
+
+		assertEquals(updatedBook.getTitle(), "Effective Java (3rd Edition)");
 	}
 
 	@Test

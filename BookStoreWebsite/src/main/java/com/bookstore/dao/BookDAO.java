@@ -21,8 +21,8 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 
 	@Override
 	public Book update(Book book) {
-		// TODO:
-		return null;
+		book.setLastUpdateTime(new Date());
+		return super.update(book);
 	}
 
 	@Override
