@@ -96,10 +96,21 @@ public class BookDAOTest extends BaseDAOTest {
 	}
 
 	@Test
-	public void testGet() {
-		fail("Not yet implemented");
+	public void testGetBookFail() {
+		Integer bookId = 99;
+		Book book = bookDAO.get(bookId);
+		
+		assertNull(book);
 	}
-
+	
+	@Test
+	public void testGetBookSuccess() {
+		Integer bookId = 2;
+		Book book = bookDAO.get(bookId);
+		
+		assertNotNull(book);
+	}
+	
 	@Test(expected = EntityNotFoundException.class)
 	public void testDeleteBookFail() {
 		Integer bookId = 100;
@@ -113,6 +124,8 @@ public class BookDAOTest extends BaseDAOTest {
 		
 		assertTrue(true);
 	}
+	
+	
 
 	@Test
 	public void testListAll() {
