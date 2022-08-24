@@ -147,15 +147,7 @@ public class BookDAOTest extends BaseDAOTest {
 		Integer bookId = 100;
 		bookDAO.delete(bookId);
 	}
-	
-	@Test
-	public void testDeleteBookSuccess() {
-		Integer bookId = 1;
-		bookDAO.delete(bookId);
 		
-		assertTrue(true);
-	}
-	
 	@Test
 	public void testListAll() {
 		List<Book> listBooks = bookDAO.listAll();
@@ -188,7 +180,16 @@ public class BookDAOTest extends BaseDAOTest {
 	
 	@Test
 	public void testCount() {
-		fail("Not yet implemented");
+		long totalBooks = bookDAO.count();
+		
+		assertEquals(2, totalBooks);
 	}
-
+	
+	@Test
+	public void testDeleteBookSuccess() {
+		Integer bookId = 1;
+		bookDAO.delete(bookId);
+		
+		assertTrue(true);
+	}
 }
