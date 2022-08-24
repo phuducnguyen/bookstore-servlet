@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -54,6 +55,36 @@ public class BookDAOTest extends BaseDAOTest {
 		
 		// Get Image's URI manually
 		String imagePath = "/home/martin/dummy-data-books/books/Effective Java.jpg";
+		
+		// Read all the bytes from a Image file
+		byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
+		newBook.setImage(imageBytes);
+		
+		Book createdBook = bookDAO.create(newBook);
+
+		assertTrue(createdBook.getBookId() > 0);
+	}
+	
+	@Test
+	public void testCreate2ndBook() throws ParseException, IOException {
+		Book newBook = new Book();
+		
+		Category category = new Category("Java Core");
+		category.setCategoryId(2);
+		newBook.setCategory(category);
+		
+		newBook.setTitle("Java 8 in Action");
+		newBook.setAuthor("Alan Mycroft");
+		newBook.setDescription("Java 8 in Action is a clearly written guide to the new features of Java 8");
+		newBook.setPrice(36.72f);
+		newBook.setIsbn("1617291994");
+				
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Date publishDate = dateFormat.parse("08/28/2014");
+		newBook.setPublishDate(publishDate);
+		
+		// Get Image's URI manually
+		String imagePath = "/home/martin/dummy-data-books/books/Java 8 in Action.jpg";
 		
 		// Read all the bytes from a Image file
 		byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
@@ -125,11 +156,15 @@ public class BookDAOTest extends BaseDAOTest {
 		assertTrue(true);
 	}
 	
-	
-
 	@Test
 	public void testListAll() {
-		fail("Not yet implemented");
+		List<Book> listBooks = bookDAO.listAll();
+		
+		for (Book aBook : listBooks) {
+			System.out.println(aBook.getTitle() + " - " + aBook.getAuthor());
+		}
+		
+		assertFalse(listBooks.isEmpty());
 	}
 
 	@Test
