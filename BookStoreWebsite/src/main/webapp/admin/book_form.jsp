@@ -120,29 +120,25 @@
 		// Validate Form's Input
 		$("#bookForm").validate({
 			rules: {
-				email: {
-					required: true,
-					email: true
-				},
-				
-				fullname: "required",
-				
-				<c:if test="${book == null}">
-				password: "required"
-				</c:if>
+				category: "required",
+				title: "required",
+				author: "required",
+				isbn: "required",
+				publishDate: "required",
+				bookImage: "required",
+				price: "required",
+				description: "required",
 			},
 			
 			messages: {
-				email: {
-					required: "Please enter email",
-					email: "Please enter an valid email address"
-				},
-				
-				fullname: "Please enter full name",
-				
-				<c:if test="${book == null}">
-				password: "Please enter password"
-				</c:if>
+				category: "Please select a category for the book",
+				title: "Please enter book title",
+				author: "Please enter book author",
+				isbn: "Please enter ISBN of the book",
+				publishDate: "Please enter publish date of the book, format type [mm/dd/yyyy]",
+				bookImage: "Please choose an image of the book",
+				price: "Please enter price of the book",
+				description: "Please enter description of the book",
 			}
 		});
 		
