@@ -34,7 +34,7 @@
 		</c:if>
 		<!-- THE CREATE MODE ACTION -->
 		<c:if test="${book == null}">
-			<form action="create_book" method="post" id="bookForm">
+			<form action="create_book" method="post" id="bookForm" enctype="multipart/form-data">
 		</c:if>
 		
 		<table class="form">
