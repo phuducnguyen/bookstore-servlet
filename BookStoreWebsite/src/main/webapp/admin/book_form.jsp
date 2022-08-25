@@ -6,9 +6,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Book Form</title>	
+	<link rel="stylesheet" href="../css/jquery-ui.min.css" >
 	<link rel="stylesheet" href="../css/style.css" >
 	<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
 </head>
 <body>
 <jsp:directive.include file="header.jsp" />
@@ -102,6 +104,11 @@
 <script type="text/javascript">
 	// JQuery specify
 	$(document).ready(function() {
+		// Select a date from a popup or inline calendar
+	    $( "#publishDate" ).datepicker({
+	    	inline: true
+	    });
+		
 		// Validate Form's Input
 		$("#bookForm").validate({
 			rules: {
