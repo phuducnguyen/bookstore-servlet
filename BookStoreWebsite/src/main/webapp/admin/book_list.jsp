@@ -15,7 +15,7 @@
 
 	<div align="center">
 		<h2 class="pageheading">Books Management</h2>
-		<h3><a href="book_form.jsp">Create New Book</a></h3>	
+		<h3><a href="new_book">Create New Book</a></h3>	
 	</div>
 	
 	<c:if test="${message != null}">
@@ -42,6 +42,7 @@
 				<td>${status.index + 1}</td>
 				<td>${book.bookId}</td>
 				
+				<!-- Display Book's thumbnail -->
 				<td>
 					<img alt="" src="data:image/jpg;base64,${book.base64Image}" width="84" height="110" />
 				</td>
