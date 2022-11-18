@@ -52,7 +52,6 @@ public class BookServices {
 		String listPage = "book_list.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
 		requestDispatcher.forward(request, response);
-	
 	}
 	
 	public void showNewBookForm() throws ServletException, IOException {
@@ -135,5 +134,18 @@ public class BookServices {
 			String message = "A new book has been created successfully.";
 			listBooks(message);
 		}
+	}
+
+	public void editBook() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+		List<Category> listCategories = categoryDAO.listAll();
+		
+		request.setAttribute("book", book);
+		request.setAttribute("listCategories", listCategories);
+		
+		String editPage = "book_form.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
+		requestDispatcher.forward(request, response);
 	}
 }
