@@ -177,10 +177,17 @@ public class BookServices {
 
 	public void deleteBook() throws ServletException, IOException {
 		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
 		
-		bookDAO.delete(bookId);
-		
-		String message = "The book has been deleted succesfully.";
-		listBooks(message);
+		if (book == null) {
+			String message = "Could not find book with ID " + bookId
+							+ ", or it might have been deleted";
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("message.jsp").forward(request, response);
+		} else {
+			String message = "The book has been deleted succesfully.";
+			bookDAO.delete(bookId);
+			listBooks(message);			
+		}
 	}
 }
