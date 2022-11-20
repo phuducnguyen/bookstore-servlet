@@ -173,4 +173,14 @@ public class BookServices {
 		String message = "The book has been update successfully.";
 		listBooks(message);
 	}
+	
+
+	public void deleteBook() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		
+		bookDAO.delete(bookId);
+		
+		String message = "The book has been deleted succesfully.";
+		listBooks(message);
+	}
 }
