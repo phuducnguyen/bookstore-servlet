@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,7 @@
 		<!-- THE EDIT MODE ACTION-->
 		<c:if test="${book != null}">
 			<form action="update_book" method="post" id="bookForm" enctype="multipart/form-data">
-			<input type="hidden" name="bookId" value="${book.bookId}">
+			<input type="hidden" name="bookId" value="${book.bookId}" />
 		</c:if>
 		<!-- THE CREATE MODE ACTION -->
 		<c:if test="${book == null}">
@@ -74,7 +75,8 @@
 			
 			<tr>
 				<td align="right">Publish Date:</td>
-				<td align="left"><input type="text" id="publishDate" name="publishDate" size="20" value="${book.publishDate}" /></td>
+				<td align="left"><input type="text" id="publishDate" name="publishDate" size="20" 
+					value="<fmt:formatDate pattern='MM/dd/yyyy' value='${book.publishDate}' />" /></td>
 			</tr>
 			
 			<tr>
@@ -132,7 +134,11 @@
 				author: "required",
 				isbn: "required",
 				publishDate: "required",
+				
+				<c:if test="${book == null}">
 				bookImage: "required",
+				</c:if>
+				
 				price: "required",
 				description: "required",
 			},
