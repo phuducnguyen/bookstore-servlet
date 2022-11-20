@@ -135,13 +135,21 @@ public class BookServices {
 	public void editBook() throws ServletException, IOException {
 		Integer bookId = Integer.parseInt(request.getParameter("id"));
 		Book book = bookDAO.get(bookId);
-		List<Category> listCategories = categoryDAO.listAll();
+		String destPage = "book_form.jsp";
 		
-		request.setAttribute("book", book);
-		request.setAttribute("listCategories", listCategories);
+		// In case, managers try to edit a book that has been deleted
+		if (book != null) {
+			List<Category> listCategories = categoryDAO.listAll();
+			
+			request.setAttribute("book", book);
+			request.setAttribute("listCategories", listCategories);
+		} else {
+			destPage = "message.jsp";
+			String message = "Could not find book with ID " + bookId;
+			request.setAttribute("message", message);
+		}
 		
-		String editPage = "book_form.jsp";
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
 		requestDispatcher.forward(request, response);
 	}
 
