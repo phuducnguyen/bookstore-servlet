@@ -220,11 +220,19 @@ public class BookServices {
 		Book book = bookDAO.get(bookId);
 		List<Category> listCategories = categoryDAO.listAll();
 		
-		request.setAttribute("listCategories", listCategories);
-		request.setAttribute("book", book);
+		String destPage = "frontend/book_detail.jsp";
 		
-		String detailPage = "frontend/book_detail.jsp";
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(detailPage);
+		request.setAttribute("listCategories", listCategories);
+
+		if (book != null) {
+			request.setAttribute("book", book);
+		} else {
+			destPage = "frontend/message.jsp";
+			String message = "Sorry, this book is not available.";
+			request.setAttribute("message", message);
+		} 
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
 		requestDispatcher.forward(request, response);
 	}
 }
