@@ -10,14 +10,13 @@ import com.bookstore.service.BookServices;
 
 @WebServlet("/admin/list_books")
 public class ListBookServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public ListBookServlet() {
-    }
+  public ListBookServlet() {}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-	        throws ServletException, IOException {
-		BookServices bookServices = new BookServices(request, response);
-		bookServices.listBooks();
-	}
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    BookServices bookServices = new BookServices(request, response);
+    bookServices.listBooks();
+  }
 }

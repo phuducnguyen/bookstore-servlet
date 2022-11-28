@@ -10,16 +10,16 @@ import com.bookstore.service.UserServices;
 
 @WebServlet("/admin/delete_user")
 public class DeleteUserServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public DeleteUserServlet() {
-        super();
-    }
+  private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		UserServices services = new UserServices(request, response);
-		services.deteleUser();
-	}
+  public DeleteUserServlet() {
+    super();
+  }
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    UserServices services = new UserServices(request, response);
+    services.deteleUser();
+  }
 
 }

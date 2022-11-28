@@ -10,16 +10,16 @@ import com.bookstore.service.UserServices;
 
 @WebServlet("/admin/update_user")
 public class UpdateUserServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public UpdateUserServlet() {
-        super();
-    }
+  private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-	        throws ServletException, IOException {
-		UserServices userServices = new UserServices(request, response);
-		userServices.updateUser();
-	}
+  public UpdateUserServlet() {
+    super();
+  }
+
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    UserServices userServices = new UserServices(request, response);
+    userServices.updateUser();
+  }
 
 }

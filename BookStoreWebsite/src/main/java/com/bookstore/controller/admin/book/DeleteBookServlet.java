@@ -10,11 +10,11 @@ import com.bookstore.service.BookServices;
 
 @WebServlet("/admin/delete_book")
 public class DeleteBookServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-	      throws ServletException, IOException {
-		BookServices bookServices = new BookServices(request, response);
-		bookServices.deleteBook();
-	}
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    BookServices bookServices = new BookServices(request, response);
+    bookServices.deleteBook();
+  }
 }

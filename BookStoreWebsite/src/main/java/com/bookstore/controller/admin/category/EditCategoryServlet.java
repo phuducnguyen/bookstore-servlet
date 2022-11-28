@@ -10,15 +10,14 @@ import com.bookstore.service.CategoryServices;
 
 @WebServlet("/admin/edit_category")
 public class EditCategoryServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public EditCategoryServlet() {
-    }
+  public EditCategoryServlet() {}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		CategoryServices categoryServices = new CategoryServices(request, response);
-		categoryServices.editCategory();
-	}
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    CategoryServices categoryServices = new CategoryServices(request, response);
+    categoryServices.editCategory();
+  }
 
 }

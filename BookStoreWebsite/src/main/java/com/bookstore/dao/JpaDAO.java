@@ -11,13 +11,12 @@ import javax.persistence.Query;
 
 public class JpaDAO<E> {
   private static EntityManagerFactory entityManagerFactory;
-    
+
   static {
     entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebsite");
   }
-  
-  public JpaDAO() {
-  }
+
+  public JpaDAO() {}
 
   public E create(E entity) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -37,10 +36,10 @@ public class JpaDAO<E> {
     entityManager.getTransaction().begin();
 
     entity = entityManager.merge(entity);
-    
+
     entityManager.getTransaction().commit();
     entityManager.close();
-    
+
     return entity;
   }
 
@@ -51,7 +50,7 @@ public class JpaDAO<E> {
     if (entity != null) {
       entityManager.refresh(entity);
     }
-    
+
     entityManager.close();
 
     return entity;
@@ -70,39 +69,39 @@ public class JpaDAO<E> {
 
   public List<E> findWithNamedQuery(String queryName) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
-    
+
     Query query = entityManager.createNamedQuery(queryName);
     List<E> result = query.getResultList();
-    
+
     entityManager.close();
-    
+
     return result;
   }
 
   public List<E> findWithNamedQuery(String queryName, int firstResult, int maxResult) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
-    
+
     Query query = entityManager.createNamedQuery(queryName);
     query.setFirstResult(maxResult);
     query.setMaxResults(maxResult);
-    
+
     List<E> result = query.getResultList();
-    
+
     entityManager.close();
-    
+
     return result;
   }
-  
+
   public List<E> findWithNamedQuery(String queryName, String paramName, Object paramValue) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     Query query = entityManager.createNamedQuery(queryName);
 
     query.setParameter(paramName, paramValue);
-    
+
     List<E> result = query.getResultList();
 
     entityManager.close();
-    
+
     return result;
   }
 
@@ -115,7 +114,7 @@ public class JpaDAO<E> {
     for (Entry<String, Object> entry : setParameters) {
       query.setParameter(entry.getKey(), entry.getValue());
     }
-    
+
     List<E> result = query.getResultList();
 
     entityManager.close();
@@ -128,12 +127,12 @@ public class JpaDAO<E> {
     Query query = entityManager.createNamedQuery(queryName);
 
     long result = (long) query.getSingleResult();
-    
+
     entityManager.close();
-    
+
     return result;
   }
-  
+
   public void close() {
     if (entityManagerFactory != null) {
       entityManagerFactory.close();

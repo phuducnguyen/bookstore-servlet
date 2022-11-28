@@ -10,16 +10,16 @@ import com.bookstore.service.CategoryServices;
 
 @WebServlet("/admin/create_category")
 public class CreateCategoryServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public CreateCategoryServlet() {
-        super();
-    }
+  public CreateCategoryServlet() {
+    super();
+  }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		CategoryServices categoryServices = new CategoryServices(request, response);
-		categoryServices.createCategory();
-	}
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    CategoryServices categoryServices = new CategoryServices(request, response);
+    categoryServices.createCategory();
+  }
 
 }

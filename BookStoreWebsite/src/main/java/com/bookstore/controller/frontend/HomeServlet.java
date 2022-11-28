@@ -15,25 +15,25 @@ import com.bookstore.entity.Category;
 
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public HomeServlet() {
-        super();
-    }
+  private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-	        throws ServletException, IOException {
-		CategoryDAO categoryDAO = new CategoryDAO();
-		BookDAO bookDAO = new BookDAO();
-		
-		List<Category> listCategories = categoryDAO.listAll();
-		List<Book> listNewBooks = bookDAO.listNewBooks();  
-		
-		request.setAttribute("listCategories", listCategories);
-		request.setAttribute("listNewBooks", listNewBooks);
-		
-		String homepage = "frontend/index.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
-		dispatcher.forward(request, response);
-	}
+  public HomeServlet() {
+    super();
+  }
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    CategoryDAO categoryDAO = new CategoryDAO();
+    BookDAO bookDAO = new BookDAO();
+
+    List<Category> listCategories = categoryDAO.listAll();
+    List<Book> listNewBooks = bookDAO.listNewBooks();
+
+    request.setAttribute("listCategories", listCategories);
+    request.setAttribute("listNewBooks", listNewBooks);
+
+    String homepage = "frontend/index.jsp";
+    RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
+    dispatcher.forward(request, response);
+  }
 }

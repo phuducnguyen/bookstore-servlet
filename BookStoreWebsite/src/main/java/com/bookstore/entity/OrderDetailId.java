@@ -6,55 +6,54 @@ package com.bookstore.entity;
  */
 public class OrderDetailId implements java.io.Serializable {
 
-	private Integer orderId;
-	private Integer bookId;
-	private int quantity;
-	private float subtotal;
+  private Integer orderId;
+  private Integer bookId;
+  private int quantity;
+  private float subtotal;
 
-	public OrderDetailId() {
-	}
+  public OrderDetailId() {}
 
-	public OrderDetailId(int quantity, float subtotal) {
-		this.quantity = quantity;
-		this.subtotal = subtotal;
-	}
+  public OrderDetailId(int quantity, float subtotal) {
+    this.quantity = quantity;
+    this.subtotal = subtotal;
+  }
 
-	public OrderDetailId(Integer orderId, Integer bookId, int quantity, float subtotal) {
-		this.orderId = orderId;
-		this.bookId = bookId;
-		this.quantity = quantity;
-		this.subtotal = subtotal;
-	}
+  public OrderDetailId(Integer orderId, Integer bookId, int quantity, float subtotal) {
+    this.orderId = orderId;
+    this.bookId = bookId;
+    this.quantity = quantity;
+    this.subtotal = subtotal;
+  }
 
-	public Integer getOrderId() {
-		return this.orderId;
-	}
+  public Integer getOrderId() {
+    return this.orderId;
+  }
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+  public void setOrderId(Integer orderId) {
+    this.orderId = orderId;
+  }
 
-	public Integer getBookId() {
-		return this.bookId;
-	}
+  public Integer getBookId() {
+    return this.bookId;
+  }
 
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
-	}
+  public void setBookId(Integer bookId) {
+    this.bookId = bookId;
+  }
 
-	public int getQuantity() {
-		return this.quantity;
-	}
+  public int getQuantity() {
+    return this.quantity;
+  }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 
-	public float getSubtotal() {
-		return this.subtotal;
-	}
+  public float getSubtotal() {
+    return this.subtotal;
+  }
 
-	public void setSubtotal(float subtotal) {
-		this.subtotal = subtotal;
-	}
+  public void setSubtotal(float subtotal) {
+    this.subtotal = subtotal;
+  }
 }

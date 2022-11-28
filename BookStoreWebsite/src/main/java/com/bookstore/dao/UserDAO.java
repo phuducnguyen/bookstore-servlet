@@ -7,65 +7,64 @@ import com.bookstore.entity.Users;
 
 public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 
-	public UserDAO() {
-	}
+  public UserDAO() {}
 
-	public Users create(Users user) {
-		String encryptedPassword = HashGeneratorUtils.generateSHA256(user.getPassword());
-		user.setPassword(encryptedPassword);
-		return super.create(user);
-	}
-	
-	@Override
-	public Users update(Users user) {
-		return super.update(user);
-	}
+  public Users create(Users user) {
+    String encryptedPassword = HashGeneratorUtils.generateSHA256(user.getPassword());
+    user.setPassword(encryptedPassword);
+    return super.create(user);
+  }
 
-	@Override
-	public Users get(Object userId) {
-		return super.find(Users.class, userId);
-	}
+  @Override
+  public Users update(Users user) {
+    return super.update(user);
+  }
 
-	public Users findByEmail(String email) {
-		List<Users> listUsers = super.findWithNamedQuery("Users.findByEmail", "email", email);
-		
-		// It expected that this listUsers consist of only ONE Object(Email is unique)
-		// Refactor: size() == 1
-		if (listUsers != null && listUsers.size() > 0) {
-			return listUsers.get(0);
-		}
-		
-		return null;
-	}
-	
-	public boolean checkLogin(String email, String password) {
-		Map<String, Object> parameters = new HashMap<>();
-		String encryptedPassword = HashGeneratorUtils.generateSHA256(password);
-		parameters.put("email", email);
-		parameters.put("password", encryptedPassword);
-		
-		List<Users> listUsers = super.findWithNamedQuery("Users.checkLogin", parameters);
-		
-		if (listUsers.size() == 1) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	@Override
-	public void delete(Object userId) {
-		super.delete(Users.class, userId);
-	}
+  @Override
+  public Users get(Object userId) {
+    return super.find(Users.class, userId);
+  }
 
-	@Override
-	public List<Users> listAll() {
-		return super.findWithNamedQuery("Users.findAll");
-	}
+  public Users findByEmail(String email) {
+    List<Users> listUsers = super.findWithNamedQuery("Users.findByEmail", "email", email);
 
-	@Override
-	public long count() {
-		return super.countWithNamedQuery("Users.countAll");
-	}
+    // It expected that this listUsers consist of only ONE Object(Email is unique)
+    // Refactor: size() == 1
+    if (listUsers != null && listUsers.size() > 0) {
+      return listUsers.get(0);
+    }
+
+    return null;
+  }
+
+  public boolean checkLogin(String email, String password) {
+    Map<String, Object> parameters = new HashMap<>();
+    String encryptedPassword = HashGeneratorUtils.generateSHA256(password);
+    parameters.put("email", email);
+    parameters.put("password", encryptedPassword);
+
+    List<Users> listUsers = super.findWithNamedQuery("Users.checkLogin", parameters);
+
+    if (listUsers.size() == 1) {
+      return true;
+    }
+
+    return false;
+  }
+
+  @Override
+  public void delete(Object userId) {
+    super.delete(Users.class, userId);
+  }
+
+  @Override
+  public List<Users> listAll() {
+    return super.findWithNamedQuery("Users.findAll");
+  }
+
+  @Override
+  public long count() {
+    return super.countWithNamedQuery("Users.countAll");
+  }
 
 }
