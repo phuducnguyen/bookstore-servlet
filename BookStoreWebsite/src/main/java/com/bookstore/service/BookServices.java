@@ -196,11 +196,9 @@ public class BookServices {
     }
 
     List<Book> listBooks = bookDAO.listByCategory(categoryId);
-    List<Category> listCategories = categoryDAO.listAll();
 
     request.setAttribute("listBooks", listBooks);
     request.setAttribute("category", category);
-    request.setAttribute("listCategories", listCategories);
 
     String listPage = "frontend/books_list_by_category.jsp";
     RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
@@ -210,11 +208,8 @@ public class BookServices {
   public void viewBookDetail() throws ServletException, IOException {
     Integer bookId = Integer.parseInt(request.getParameter("id"));
     Book book = bookDAO.get(bookId);
-    List<Category> listCategories = categoryDAO.listAll();
 
     String destPage = "frontend/book_detail.jsp";
-
-    request.setAttribute("listCategories", listCategories);
 
     if (book != null) {
       request.setAttribute("book", book);
