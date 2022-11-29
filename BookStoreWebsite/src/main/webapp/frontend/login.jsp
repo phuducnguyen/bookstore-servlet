@@ -10,7 +10,7 @@
 	<!-- TODO: The Logo image will not be loaded correctly -->
 	<jsp:directive.include file="header.jsp" />
 	
-	<div align="center">
+	<div class="center">
 		<h2>PLEASE LOGIN</h2>
 		<form>
 			Email: <input type="text" size="10" />
