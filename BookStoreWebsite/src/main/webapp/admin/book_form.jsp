@@ -2,16 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Book Form</title>	
+	
 	<link rel="stylesheet" href="../css/jquery-ui.min.css" >
 	<link rel="stylesheet" href="../css/style.css" >
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/richtext.min.css">
+	
+	
 	<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.richtext.min.js"></script>
+	
 </head>
 <body>
 <jsp:directive.include file="header.jsp" />
@@ -42,7 +49,7 @@
 			<tr>
 				<td>Category:</td>
 				<td>
-				<!-- The Combobox list all categories in Alphabet Order -->
+				<!-- The Combo Box list all categories in Alphabet Order -->
 					<select name="category">
 						<c:forEach items="${listCategories}" var="category">
 							<c:if test="${category.categoryId eq book.category.categoryId}">
@@ -120,6 +127,9 @@
 	    $( "#publishDate" ).datepicker({
 	    	inline: true
 	    });
+
+		// Calling the plugin will transform the textarea element into a basic WYSIWYG rich text editor.
+	    $('#description').richText();
 		
 		// Change event for bookImage
 		$('#bookImage').change(function() {
