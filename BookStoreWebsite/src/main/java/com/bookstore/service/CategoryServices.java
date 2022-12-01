@@ -119,18 +119,15 @@ public class CategoryServices {
       request.setAttribute("message", message);
       request.getRequestDispatcher("message.jsp").forward(request, response);
       return;
-    } else {
-      categoryDAO.delete(categoryId);
-      message = "The category " + categoryId + " has been removed successfully.";
     }
-    
+
     /*
      * Checking Books belong to a Category
      * before deleting a Category
      */
     if (numberOfBooks > 0) {
-      message = "Could not delete the category (ID: %d) because it currently contains some books.";
-      message = String.format(message, numberOfBooks);
+      message = "Could not delete the category (ID: %d) because it currently contains %d books.";
+      message = String.format(message, categoryId, numberOfBooks);
     } else {
       categoryDAO.delete(categoryId); 
       message = "The category with ID " + categoryId + " has been removed successfully.";
