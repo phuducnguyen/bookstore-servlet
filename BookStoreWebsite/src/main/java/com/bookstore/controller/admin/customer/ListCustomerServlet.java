@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bookstore.service.CustomerService;
+import com.bookstore.service.CustomerServices;
 
 @WebServlet("/admin/list_customer")
 public class ListCustomerServlet extends HttpServlet {
@@ -18,7 +18,7 @@ public class ListCustomerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 	    throws ServletException, IOException {
-	  CustomerService customerService = new CustomerService(request, response);
-	  customerService.listCustomers();
+	  CustomerServices customerServices = new CustomerServices(request, response);
+	  customerServices.listCustomers();
 	}
 }

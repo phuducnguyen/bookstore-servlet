@@ -2,6 +2,7 @@ package com.bookstore.dao;
 
 import java.util.Date;
 import java.util.List;
+import javax.naming.spi.DirStateFactory.Result;
 import com.bookstore.entity.Customer;
 
 public class CustomerDAO extends JpaDAO<Customer> implements GenericDAO<Customer> {
@@ -37,4 +38,13 @@ public class CustomerDAO extends JpaDAO<Customer> implements GenericDAO<Customer
     return super.countWithNamedQuery("Customer.countAll");
   }
 
+  public Customer findByEmail(String email) {
+    List<Customer> result = super.findWithNamedQuery("Customer.findByEmail", "email", email);
+    
+    if (!result.isEmpty()) {
+      return result.get(0);
+    }
+    
+    return null;
+  }
 }

@@ -8,14 +8,13 @@
 	<title>Manage Customers | Evergreen Green Administration</title>
 	<link rel="stylesheet" href="../css/style.css" >
 	<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
 
 	<div align="center">
 		<h2 class="pageheading">Customers Management</h2>
-		<h3><a href="new_customer">Create New Customer</a></h3>	
+		<h3><a href="customer_form.jsp">Create New Customer</a></h3>	
 	</div>
 	
 	<c:if test="${message != null}">
