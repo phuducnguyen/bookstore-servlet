@@ -43,7 +43,7 @@
 			</tr>	
 			<tr>
 				<td align="right">Full Name:</td>
-				<td align="left"><input type="text" id="fullName" name="fullName" size="42" value="${customer.fullName}" /></td>
+				<td align="left"><input type="text" id="fullname" name="fullname" size="42" value="${customer.fullname}" /></td>
 			</tr>
 			<tr>
 				<td align="right">Password:</td>
@@ -67,7 +67,7 @@
 			</tr>
 			<tr>
 				<td align="right">Zip Code:</td>
-				<td align="left"><input type="text" id="zipCode" name="zipCode" size="42" value="${customer.zipCode}" /></td>
+				<td align="left"><input type="text" id="zipcode" name="zipcode" size="42" value="${customer.zipcode}" /></td>
 			</tr>
 			<tr>
 				<td align="right">Country:</td>

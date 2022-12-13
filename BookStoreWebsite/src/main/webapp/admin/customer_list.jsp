@@ -45,7 +45,7 @@
 				<td>${customer.country}</td>
 				<td>${customer.registerDate}</td>
 				<td>
-					<a href="edit_user?id=${customer.customerId}">Edit</a> &nbsp;
+					<a href="edit_customer?id=${customer.customerId}">Edit</a> &nbsp;
 					<a href="javascript:void(0);" class="deleteLink" id="${customer.customerId}">Delete</a>
 				</td>
 			</tr>

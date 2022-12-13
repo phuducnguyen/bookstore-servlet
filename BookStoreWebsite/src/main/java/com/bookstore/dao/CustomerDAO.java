@@ -2,7 +2,6 @@ package com.bookstore.dao;
 
 import java.util.Date;
 import java.util.List;
-import javax.naming.spi.DirStateFactory.Result;
 import com.bookstore.entity.Customer;
 
 public class CustomerDAO extends JpaDAO<Customer> implements GenericDAO<Customer> {
