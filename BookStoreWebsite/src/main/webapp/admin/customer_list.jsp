@@ -57,18 +57,16 @@
 	
 	<script>
 		$(document).ready(function() {
-			// Handle click event of Delete link
+		// Handle click event of Delete link
 			$(".deleteLink").each(function() {
 				$(this).on("click", function() {
 					customerId = $(this).attr("id");
-					if (confirm('Are you sure you want to delete the customer with ID ' + customerId + '?')) {
-						window.location = 'delete_customer?id=' + customerId;
-					}
+					confirmDelete(customerId);
 				});
 			});
 		});
 	
-		function confirmDelete(userId) {
+		function confirmDelete(customerId) {
 			if (confirm('Are you sure you want to delete the customer with ID ' + customerId + '?')) {
 				window.location = 'delete_customer?id=' + customerId;	
 			}		
