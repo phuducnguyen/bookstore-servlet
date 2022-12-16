@@ -151,15 +151,15 @@ public class CustomerServices {
     // Retrieve the information of the new customer from request
     String email = request.getParameter("email");
     String password = request.getParameter("password");
-    String fullName = request.getParameter("fullname");
+    String fullName = request.getParameter("fullName");
     String phone = request.getParameter("phone");
     String address = request.getParameter("address");
     String city = request.getParameter("city");
-    String zipCode = request.getParameter("zipcode");
+    String zipCode = request.getParameter("zipCode");
     String country = request.getParameter("country");
 
     // Set this value to the properties of the Customer object
-    if (email != null && email.equals("")) {
+    if (email != null && !email.equals("")) {
       customer.setEmail(email);
     }
     

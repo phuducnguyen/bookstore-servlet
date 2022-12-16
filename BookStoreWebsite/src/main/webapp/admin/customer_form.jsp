@@ -103,7 +103,7 @@
 				</c:if>
 				
 				confirmPassword: {
-					<c:if test="{customer == null}">
+					<c:if test="${customer == null}">
 					required: true,
 					</c:if>
 					equalTo: "#password"
@@ -124,12 +124,12 @@
 				
 				fullName: "Please enter full name",
 				
-				<c:if test="{customer == null}">
+				<c:if test="${customer == null}">
 				password: "Please enter password",
 				</c:if>
 				
 				confirmPassword: {
-					<c:if test="{customer == null}">
+					<c:if test="${customer == null}">
 					required: "Please confirm password",
 					</c:if>
 					equalTo: "Confirm password does not match password"

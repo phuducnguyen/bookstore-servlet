@@ -54,7 +54,7 @@ public class CustomerDAO extends JpaDAO<Customer> implements GenericDAO<Customer
     String encryptedPassword = HashGeneratorUtils.generateMD5(password);
     
     parameters.put("email", email);
-    parameters.put(password, encryptedPassword);
+    parameters.put("password", encryptedPassword);
     
     List<Customer> result = super.findWithNamedQuery("Customer.checkLogin", parameters);
     
