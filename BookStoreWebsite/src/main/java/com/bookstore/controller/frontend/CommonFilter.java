@@ -31,12 +31,12 @@ public class CommonFilter extends HttpFilter implements Filter {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
     
-    // Set the below attribute 
-    // when the request comes to the front-end only
+    // When the request comes to the front-end only
+    // Or not ADMIN role
     if (!path.startsWith("/admin/")) {
+      // Set the necessary attribute 
       List<Category> listCategories = categoryDAO.listAll();
       request.setAttribute("listCategories", listCategories);
-      System.out.println("CommonFilter->doFilter()");
     }
     chain.doFilter(request, response);
   }

@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Admin Login</title>
-<link rel="stylesheet" href="../css/style.css">
-<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Admin Login</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 	<div align="center">
@@ -41,30 +41,30 @@
 		</form>
 	</div>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 
-		$(document).ready(function() {
-			// Validate Login Form's Input
-			$("#loginForm").validate({
-				rules : {
-					email : {
-						required : true,
-						email : true
-					},
-
-					password : "required",
+	$(document).ready(function() {
+		// Validate Login Form's Input
+		$("#loginForm").validate({
+			rules : {
+				email : {
+					required : true,
+					email : true
 				},
 
-				messages : {
-					email : {
-						required: "Please enter email",
-						email: "Please enter an valid email address"
-					},
-					
-					password : "Please enter password"
-				}
-			});
+				password : "required",
+			},
+
+			messages : {
+				email : {
+					required: "Please enter email",
+					email: "Please enter an valid email address"
+				},
+				
+				password : "Please enter password"
+			}
 		});
-	</script>
+	});
+</script>
 </body>
 </html>

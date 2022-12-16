@@ -12,17 +12,26 @@
 			<input type="submit" value="Search" />
 		
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="login">Sign In</a> |
-			<a href="register">Register</a> |
-			<a href="view_cart">Cart</a>
+			
+			<c:if test="${loggedCustomer == null}">
+				<a href="login">Sign In</a> |
+				<a href="register">Register</a> |			
+			</c:if>
+			
+			<c:if test="${loggedCustomer != null}">
+				Welcome,
+				<a href="view_profile">${loggedCustomer.fullname}</a> |
+				<a href="view_orders">My Orders</a> |
+				<a href="logout">Logout</a> | 
+			</c:if>
+			
+				<a href="view_cart">Cart</a>
 		</form>
 	</div>
 	<div>&nbsp;</div>
 	<div>
 		<c:forEach var="category" items="${listCategories}" varStatus="status">
 			<a href="view_category?id=${category.categoryId}">
-				<!-- BUG: After updated, the category do not show correctly in HomePage-->
-				<!-- The <font> tag is deprecated, REPLACE IT later -->
 				<font size="+1"><b><c:out value="${category.name}"></c:out></b></font>
 			</a>
 			<c:if test="${not status.last}">

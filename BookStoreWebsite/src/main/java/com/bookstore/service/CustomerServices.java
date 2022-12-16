@@ -167,4 +167,42 @@ public class CustomerServices {
     customer.setZipcode(zipCode);
     customer.setCountry(country);    
   }
+
+  public void showLogin() throws ServletException, IOException {
+    String loginPage = "frontend/login.jsp";
+    RequestDispatcher dispatcher = request.getRequestDispatcher(loginPage);
+    dispatcher.forward(request, response);
+  }
+
+  public void doLogin() throws ServletException, IOException {
+    // Read email and password from the request
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
+     
+    Customer customer = customerDAO.checkLogin(email, password);
+    
+    if (customer == null) {
+      // Store this message in the request attribute
+      String message = "Login failed. Please check your email and password.";
+      request.setAttribute("message", message);
+      
+      // Forward to Login page again
+      showLogin();
+    } else {
+      /* In case the customer has logged in successfully */
+      // Set a value in the session attribute here
+      request.getSession().setAttribute("loggedCustomer", customer);
+      
+      // Show the Customer Profile page
+      String profilePage = "frontend/customer_profile.jsp";
+      RequestDispatcher dispatcher = request.getRequestDispatcher(profilePage);
+      dispatcher.forward(request, response);
+    }
+  }
+
+  public void showCustomerProfile() throws ServletException, IOException {
+    String profilePage = "frontend/customer_profile.jsp";
+    RequestDispatcher dispatcher = request.getRequestDispatcher(profilePage);
+    dispatcher.forward(request, response);
+  }
 }
