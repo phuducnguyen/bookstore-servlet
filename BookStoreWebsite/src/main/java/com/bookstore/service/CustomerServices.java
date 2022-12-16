@@ -151,4 +151,46 @@ public class CustomerServices {
         CommonUtility.showMessageBackend(message, request, response);
     }
   }
+
+  public void registerCustomer() throws ServletException, IOException {
+    String email = request.getParameter("email");
+    Customer existCustomer = customerDAO.findByEmail(email);
+    String message = "";
+    
+    // Find customer who is already signing this email
+    if (existCustomer != null) {
+      message = "Could not register. The email " + email
+          + " is already registered by another customer.";
+    } else {
+      // Otherwise, Retrieve the information of the new customer
+      String fullName = request.getParameter("fullname");
+      String password = request.getParameter("password");
+      String phone = request.getParameter("phone");
+      String address = request.getParameter("address");
+      String city = request.getParameter("city");
+      String zipCode = request.getParameter("zipcode");
+      String country = request.getParameter("country");
+
+      // Set this value to the properties of the Customer object
+      Customer newCustomer = new Customer();
+      newCustomer.setEmail(email);
+      newCustomer.setFullname(fullName);
+      newCustomer.setPassword(password);
+      newCustomer.setPhone(phone);
+      newCustomer.setAddress(address);
+      newCustomer.setCity(city);
+      newCustomer.setZipcode(zipCode);
+      newCustomer.setCountry(country);
+
+      customerDAO.create(newCustomer);
+
+      message = "You have registered successfully! Thank you.<br/>"
+          + "<a href='login'>Click here</a> to login";
+    }
+    
+    String messagePage = "frontend/message.jsp";
+    RequestDispatcher requestDispatcher = request.getRequestDispatcher(messagePage);
+    request.setAttribute("message", message);
+    requestDispatcher.forward(request, response);
+  }
 }

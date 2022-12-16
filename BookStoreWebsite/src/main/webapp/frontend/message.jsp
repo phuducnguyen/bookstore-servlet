@@ -4,14 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Evergreen Bookstore</title>
+<title>Evergreen Books - Online Books Store</title>
+
+<link rel="stylesheet" href="css/style.css" >
 </head>
 <body>
 
 	<jsp:directive.include file="header.jsp" />
 	
 	<div class="center">
+		<br/>
 		<h3>${message}</h3>
+		<br/>
 	</div>
 	
 	<jsp:directive.include file="footer.jsp" />
