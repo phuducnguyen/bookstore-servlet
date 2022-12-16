@@ -6,8 +6,11 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import com.bookstore.dao.CustomerDAO;
+import com.bookstore.dao.HashGeneratorUtils;
 import com.bookstore.entity.Customer;
+import static com.bookstore.service.CommonUtility.*;
 
 public class CustomerServices {
   private CustomerDAO customerDAO;
@@ -23,16 +26,13 @@ public class CustomerServices {
 
   public void listCustomers(String message) throws ServletException, IOException {
     List<Customer> listCustomers = customerDAO.listAll();
+    request.setAttribute("listCustomers", listCustomers);
 
     if (message != null) {
       request.setAttribute("message", message);
     }
 
-    request.setAttribute("listCustomers", listCustomers);
-
-    String listPage = "customer_list.jsp";
-    RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
-    requestDispatcher.forward(request, response);
+    forwardToPage("customer_list.jsp", message, request, response);
   }
 
   public void listCustomers() throws ServletException, IOException {
@@ -46,14 +46,13 @@ public class CustomerServices {
     // Find customer that already signing this email
     if (existCustomer != null) {
       // If existed, display friendly error page
-      String message = "Could not create new customer, this email " + email
+      String message = "Could not create new customer: the email " + email
           + " is already registered by another customer.";
       listCustomers(message);
     } else {
       // Otherwise, create new customer
       Customer newCustomer = new Customer();
       updateCustomerFieldsFromForm(newCustomer);
-
       customerDAO.create(newCustomer);
 
       String message = "New customer has been created successfully.";
@@ -66,15 +65,17 @@ public class CustomerServices {
     Integer customerId = Integer.parseInt(request.getParameter("id"));
     Customer customer = customerDAO.get(customerId);
 
-    // Display an error message when the admin attempts to edit a customer 
-    // which has been deleted by another admin 
     if (customer == null) {
       String message = "Could not find customer with ID " + customerId;
-      CommonUtility.showMessageBackend(message, request, response);
+      showMessageBackend(message, request, response);
     } else {
-      // Otherwise, forward to Edit Customer Page
+      /*  If left blank, the customer's password won't be updated  
+       *  Set password as null to make the password is left blank by default
+       *  Work with the encrypted password feature
+       */
+      customer.setPassword(null);
       request.setAttribute("customer", customer);
-      CommonUtility.forwardToPage("customer_form.jsp", request, response);
+      forwardToPage("customer_form.jsp", request, response);
     }
   }
 
@@ -149,8 +150,8 @@ public class CustomerServices {
   private void updateCustomerFieldsFromForm(Customer customer) {
     // Retrieve the information of the new customer from request
     String email = request.getParameter("email");
-    String fullName = request.getParameter("fullname");
     String password = request.getParameter("password");
+    String fullName = request.getParameter("fullname");
     String phone = request.getParameter("phone");
     String address = request.getParameter("address");
     String city = request.getParameter("city");
@@ -158,9 +159,16 @@ public class CustomerServices {
     String country = request.getParameter("country");
 
     // Set this value to the properties of the Customer object
-    customer.setEmail(email);
+    if (email != null && email.equals("")) {
+      customer.setEmail(email);
+    }
+    
+    // Password is encrypted using MD5 
+    if (password != null && !password.isEmpty()) {
+      String encryptedPassword = HashGeneratorUtils.generateMD5(password);
+      customer.setPassword(encryptedPassword);
+    }
     customer.setFullname(fullName);
-    customer.setPassword(password);
     customer.setPhone(phone);
     customer.setAddress(address);
     customer.setCity(city);
@@ -169,9 +177,7 @@ public class CustomerServices {
   }
 
   public void showLogin() throws ServletException, IOException {
-    String loginPage = "frontend/login.jsp";
-    RequestDispatcher dispatcher = request.getRequestDispatcher(loginPage);
-    dispatcher.forward(request, response);
+    forwardToPage("frontend/login.jsp", request, response);
   }
 
   public void doLogin() throws ServletException, IOException {
@@ -186,12 +192,12 @@ public class CustomerServices {
       String message = "Login failed. Please check your email and password.";
       request.setAttribute("message", message);
       
-      // Forward to Login page again
       showLogin();
     } else {
       /* In case the customer has logged in successfully */
       // Set a value in the session attribute here
-      request.getSession().setAttribute("loggedCustomer", customer);
+      HttpSession session = request.getSession();
+      session.setAttribute("loggedCustomer", customer);
       
       // Show the Customer Profile page
       String profilePage = "frontend/customer_profile.jsp";
@@ -201,8 +207,6 @@ public class CustomerServices {
   }
 
   public void showCustomerProfile() throws ServletException, IOException {
-    String profilePage = "frontend/customer_profile.jsp";
-    RequestDispatcher dispatcher = request.getRequestDispatcher(profilePage);
-    dispatcher.forward(request, response);
+    forwardToPage("frontend/customer_profile.jsp", request, response);
   }
 }

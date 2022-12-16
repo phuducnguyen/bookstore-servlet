@@ -6,15 +6,15 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Category Form</title>	
-	
-	<link rel="stylesheet" href="../css/jquery-ui.min.css" >
+	<title>Customer Form</title>	
+		
 	<link rel="stylesheet" href="../css/style.css" >	
 	<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>	
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+		
 </head>
 <body>
-<jsp:directive.include file="header.jsp" />
+	<jsp:directive.include file="header.jsp" />
 
 	<div align="center">
 		<h2 class="pageheading">
@@ -43,7 +43,7 @@
 			</tr>	
 			<tr>
 				<td align="right">Full Name:</td>
-				<td align="left"><input type="text" id="fullname" name="fullname" size="42" value="${customer.fullname}" /></td>
+				<td align="left"><input type="text" id="fullName" name="fullName" size="42" value="${customer.fullname}" /></td>
 			</tr>
 			<tr>
 				<td align="right">Password:</td>
@@ -67,7 +67,7 @@
 			</tr>
 			<tr>
 				<td align="right">Zip Code:</td>
-				<td align="left"><input type="text" id="zipcode" name="zipcode" size="42" value="${customer.zipcode}" /></td>
+				<td align="left"><input type="text" id="zipCode" name="zipCode" size="42" value="${customer.zipcode}" /></td>
 			</tr>
 			<tr>
 				<td align="right">Country:</td>
@@ -97,10 +97,15 @@
 					email: true
 				},
 				fullName: "required",
+				
+				<c:if test="${customer == null}">
 				password: "required",
+				</c:if>
 				
 				confirmPassword: {
+					<c:if test="{customer == null}">
 					required: true,
+					</c:if>
 					equalTo: "#password"
 				},
 				
@@ -118,10 +123,15 @@
 				},
 				
 				fullName: "Please enter full name",
+				
+				<c:if test="{customer == null}">
 				password: "Please enter password",
+				</c:if>
 				
 				confirmPassword: {
+					<c:if test="{customer == null}">
 					required: "Please confirm password",
+					</c:if>
 					equalTo: "Confirm password does not match password"
 				},
 				
