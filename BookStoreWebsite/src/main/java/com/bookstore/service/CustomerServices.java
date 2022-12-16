@@ -43,32 +43,16 @@ public class CustomerServices {
     String email = request.getParameter("email");
     Customer existCustomer = customerDAO.findByEmail(email);
 
-    // Find customer who is already signing this email
+    // Find customer that already signing this email
     if (existCustomer != null) {
+      // If existed, display friendly error page
       String message = "Could not create new customer, this email " + email
           + " is already registered by another customer.";
       listCustomers(message);
-
     } else {
-      // Otherwise, Retrieve the information of the new customer
-      String fullName = request.getParameter("fullname");
-      String password = request.getParameter("password");
-      String phone = request.getParameter("phone");
-      String address = request.getParameter("address");
-      String city = request.getParameter("city");
-      String zipCode = request.getParameter("zipcode");
-      String country = request.getParameter("country");
-
-      // Set this value to the properties of the Customer object
+      // Otherwise, create new customer
       Customer newCustomer = new Customer();
-      newCustomer.setEmail(email);
-      newCustomer.setFullname(fullName);
-      newCustomer.setPassword(password);
-      newCustomer.setPhone(phone);
-      newCustomer.setAddress(address);
-      newCustomer.setCity(city);
-      newCustomer.setZipcode(zipCode);
-      newCustomer.setCountry(country);
+      updateCustomerFieldsFromForm(newCustomer);
 
       customerDAO.create(newCustomer);
 
@@ -82,12 +66,13 @@ public class CustomerServices {
     Integer customerId = Integer.parseInt(request.getParameter("id"));
     Customer customer = customerDAO.get(customerId);
 
-    /* Display an error message when the admin attempts to edit a customer 
-       which has been deleted by another admin */
+    // Display an error message when the admin attempts to edit a customer 
+    // which has been deleted by another admin 
     if (customer == null) {
       String message = "Could not find customer with ID " + customerId;
       CommonUtility.showMessageBackend(message, request, response);
     } else {
+      // Otherwise, forward to Edit Customer Page
       request.setAttribute("customer", customer);
       CommonUtility.forwardToPage("customer_form.jsp", request, response);
     }
@@ -106,25 +91,9 @@ public class CustomerServices {
       message = "Could not update the customer ID " + customerId
           + " because there's an existing customer having the same email.";
     } else {
-      // Otherwise, Retrieve the edit information to update this customer
-      String fullName = request.getParameter("fullname");
-      String password = request.getParameter("password");
-      String phone = request.getParameter("phone");
-      String address = request.getParameter("address");
-      String city = request.getParameter("city");
-      String zipCode = request.getParameter("zipcode");
-      String country = request.getParameter("country");
-
-      // Set this value to the properties of the Customer object
+      // Otherwise, update this customer
       Customer customerById = customerDAO.get(customerId);
-      customerById.setEmail(email);
-      customerById.setFullname(fullName);
-      customerById.setPassword(password);
-      customerById.setPhone(phone);
-      customerById.setAddress(address);
-      customerById.setCity(city);
-      customerById.setZipcode(zipCode);
-      customerById.setCountry(country);
+      updateCustomerFieldsFromForm(customerById);
 
       customerDAO.update(customerById);
 
@@ -157,33 +126,16 @@ public class CustomerServices {
     Customer existCustomer = customerDAO.findByEmail(email);
     String message = "";
     
-    // Find customer who is already signing this email
     if (existCustomer != null) {
       message = "Could not register. The email " + email
           + " is already registered by another customer.";
+      listCustomers(message);
     } else {
-      // Otherwise, Retrieve the information of the new customer
-      String fullName = request.getParameter("fullname");
-      String password = request.getParameter("password");
-      String phone = request.getParameter("phone");
-      String address = request.getParameter("address");
-      String city = request.getParameter("city");
-      String zipCode = request.getParameter("zipcode");
-      String country = request.getParameter("country");
-
-      // Set this value to the properties of the Customer object
       Customer newCustomer = new Customer();
-      newCustomer.setEmail(email);
-      newCustomer.setFullname(fullName);
-      newCustomer.setPassword(password);
-      newCustomer.setPhone(phone);
-      newCustomer.setAddress(address);
-      newCustomer.setCity(city);
-      newCustomer.setZipcode(zipCode);
-      newCustomer.setCountry(country);
-
+      updateCustomerFieldsFromForm(newCustomer);
+      
       customerDAO.create(newCustomer);
-
+      
       message = "You have registered successfully! Thank you.<br/>"
           + "<a href='login'>Click here</a> to login";
     }
@@ -192,5 +144,27 @@ public class CustomerServices {
     RequestDispatcher requestDispatcher = request.getRequestDispatcher(messagePage);
     request.setAttribute("message", message);
     requestDispatcher.forward(request, response);
+  }
+
+  private void updateCustomerFieldsFromForm(Customer customer) {
+    // Retrieve the information of the new customer from request
+    String email = request.getParameter("email");
+    String fullName = request.getParameter("fullname");
+    String password = request.getParameter("password");
+    String phone = request.getParameter("phone");
+    String address = request.getParameter("address");
+    String city = request.getParameter("city");
+    String zipCode = request.getParameter("zipcode");
+    String country = request.getParameter("country");
+
+    // Set this value to the properties of the Customer object
+    customer.setEmail(email);
+    customer.setFullname(fullName);
+    customer.setPassword(password);
+    customer.setPhone(phone);
+    customer.setAddress(address);
+    customer.setCity(city);
+    customer.setZipcode(zipCode);
+    customer.setCountry(country);    
   }
 }
