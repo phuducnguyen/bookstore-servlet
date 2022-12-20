@@ -141,10 +141,7 @@ public class CustomerServices {
           + "<a href='login'>Click here</a> to login";
     }
     
-    String messagePage = "frontend/message.jsp";
-    RequestDispatcher requestDispatcher = request.getRequestDispatcher(messagePage);
-    request.setAttribute("message", message);
-    requestDispatcher.forward(request, response);
+    showMessageFrontend(message, request, response);
   }
 
   private void updateCustomerFieldsFromForm(Customer customer) {
@@ -163,10 +160,14 @@ public class CustomerServices {
       customer.setEmail(email);
     }
     
-    // Password is encrypted using MD5 
-    if (password != null && !password.isEmpty()) {
-      String encryptedPassword = HashGeneratorUtils.generateMD5(password);
-      customer.setPassword(encryptedPassword);
+    System.out.println(password); 
+    if (password != null && !password.equals("")) {
+      /* Use in production 
+       * Password is encrypted using MD5 */
+//      String encryptedPassword = HashGeneratorUtils.generateMD5(password);
+//      customer.setPassword(encryptedPassword);
+      // For development, test
+      customer.setPassword(password);
     }
     customer.setFullname(fullName);
     customer.setPhone(phone);
@@ -199,14 +200,26 @@ public class CustomerServices {
       HttpSession session = request.getSession();
       session.setAttribute("loggedCustomer", customer);
       
-      // Show the Customer Profile page
-      String profilePage = "frontend/customer_profile.jsp";
-      RequestDispatcher dispatcher = request.getRequestDispatcher(profilePage);
-      dispatcher.forward(request, response);
+      showCustomerProfile();
     }
   }
 
   public void showCustomerProfile() throws ServletException, IOException {
     forwardToPage("frontend/customer_profile.jsp", request, response);
+  }
+
+  public void showCustomerProfileEditForm() throws ServletException, IOException {
+    forwardToPage("frontend/edit_profile.jsp", request, response);
+  }
+
+  public void updateCustomerProfile() throws ServletException, IOException {
+    // Retrieve the Customer Object from the session
+    Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+    
+    // Update current values from the form
+    updateCustomerFieldsFromForm(customer);
+    customerDAO.update(customer);
+    
+    showCustomerProfile();
   }
 }

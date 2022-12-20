@@ -6,9 +6,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Register as a Customer</title>	
+	<title>Customer Profile | Online Books Store</title>	
 	
-	<link rel="stylesheet" href="css/jquery-ui.min.css" >
 	<link rel="stylesheet" href="css/style.css" >	
 	<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>	
@@ -18,21 +17,46 @@
 
 	<div align="center">
 		<h2 class="pageheading">
-			Register as a Customer
+			Edit My Profile
 		</h2>
 	</div>
 	
 	<div align="center">
-		<form action="register_customer" method="post" id="customerForm">
+		<form action="update_profile" method="post" id="customerForm">
 		
 		<table class="form">
 			<tr>
 				<td align="right">E-mail:</td>
-				<td align="left"><input type="text" id="email" name="email" size="42" /></td>
+				<td align="left"><b>${loggedCustomer.email}</b></td>
 			</tr>	
 			<tr>
 				<td align="right">Full Name:</td>
-				<td align="left"><input type="text" id="fullName" name="fullName" size="42" /></td>
+				<td align="left"><input type="text" id="fullName" name="fullName" size="42" value="${loggedCustomer.fullname}" /></td>
+			</tr>
+			<tr>
+				<td align="right">Phone Number:</td>
+				<td align="left"><input type="text" id="phone" name="phone" size="42" value="${loggedCustomer.phone}" /></td>
+			</tr>
+			<tr>
+				<td align="right">Address:</td>
+				<td align="left"><input type="text" id="address" name="address" size="42" value="${loggedCustomer.address}" /></td>
+			</tr>
+			<tr>
+				<td align="right">City:</td>
+				<td align="left"><input type="text" id="city" name="city" size="42" value="${loggedCustomer.city}" /></td>
+			</tr>
+			<tr>
+				<td align="right">Zip Code:</td>
+				<td align="left"><input type="text" id="zipCode" name="zipCode" size="42" value="${loggedCustomer.zipcode}" /></td>
+			</tr>
+			<tr>
+				<td align="right">Country:</td>
+				<td align="left"><input type="text" id="country" name="country" size="42" value="${loggedCustomer.country}" /></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<i>(Leave password fields blank if you don't want to change password)</i>
+				</td>
 			</tr>
 			<tr>
 				<td align="right">Password:</td>
@@ -42,26 +66,6 @@
 				<td align="right">Confirm Password:</td>
 				<td align="left"><input type="password" id="confirmPassword" name="confirmPassword" size="42" /></td>
 			</tr>			
-			<tr>
-				<td align="right">Phone Number:</td>
-				<td align="left"><input type="text" id="phone" name="phone" size="42" /></td>
-			</tr>
-			<tr>
-				<td align="right">Address:</td>
-				<td align="left"><input type="text" id="address" name="address" size="42" /></td>
-			</tr>
-			<tr>
-				<td align="right">City:</td>
-				<td align="left"><input type="text" id="city" name="city" size="42" /></td>
-			</tr>
-			<tr>
-				<td align="right">Zip Code:</td>
-				<td align="left"><input type="text" id="zipCode" name="zipCode" size="42" /></td>
-			</tr>
-			<tr>
-				<td align="right">Country:</td>
-				<td align="left"><input type="text" id="country" name="country" size="42" /></td>
-			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td colspan="2" align="center">
@@ -86,10 +90,8 @@
 					email: true
 				},
 				fullName: "required",
-				password: "required",
 				
 				confirmPassword: {
-					required: true,
 					equalTo: "#password"
 				},
 				
@@ -107,10 +109,8 @@
 				},
 				
 				fullName: "Please enter full name",
-				password: "Please enter password",
 				
 				confirmPassword: {
-					required: "Please confirm password",
 					equalTo: "Confirm password does not match password"
 				},
 				

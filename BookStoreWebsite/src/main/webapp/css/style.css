@@ -113,6 +113,10 @@ table.book {
 	margin: 0 auto;
 }
 
+table.normal {
+	border: 0;
+}
+
 div.book-group {
 	width: 80%;
 	margin: 0 auto;

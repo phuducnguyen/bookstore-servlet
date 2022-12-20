@@ -12,12 +12,12 @@
 
 	<jsp:directive.include file="header.jsp" />
 	
-	<div class="center">
+	<div align="center">
 		<br/>
 		<h2>Welcome, ${loggedCustomer.fullname}</h2>
 		<br/>
 	
-		<table border="0">
+		<table class="normal">
 			<tr>
 				<td>E-mail Address:</td>
 				<td>${loggedCustomer.email}</td>
@@ -45,6 +45,10 @@
 			<tr>
 				<td>Country:</td>
 				<td>${loggedCustomer.country}</td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td colspan="2" align="center"><a href="edit_profile">Edit My Profile</a></td>
 			</tr>
 		</table>
 	</div>
