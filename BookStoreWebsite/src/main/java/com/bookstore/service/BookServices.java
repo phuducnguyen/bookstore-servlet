@@ -16,6 +16,7 @@ import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
+import static com.bookstore.service.CommonUtility.*;
 
 public class BookServices {
   private BookDAO bookDAO;
@@ -152,7 +153,7 @@ public class BookServices {
 
     Book existBook = bookDAO.get(bookId);
     Book bookByTitle = bookDAO.findByTitle(title);
-    
+
     if (bookByTitle != null && !existBook.equals(bookByTitle)) {
       String message = "Could not update book because there's another book having same title.";
       listBooks(message);
@@ -174,12 +175,17 @@ public class BookServices {
 
     if (book == null) {
       String message = "Could not find book with ID " + bookId + ", or it might have been deleted";
-      request.setAttribute("message", message);
-      request.getRequestDispatcher("message.jsp").forward(request, response);
+      showMessageBackend(message, request, response);
     } else {
-      String message = "The book has been deleted succesfully.";
-      bookDAO.delete(bookId);
-      listBooks(message);
+      // Advanced feature: Cannot delete a book which has reviews posted by customers
+      if (!book.getReviews().isEmpty()) {
+        String message = "Could not delete the book with ID " + bookId + " because it has reviews";
+        showMessageBackend(message, request, response);
+      } else {
+        String message = "The book has been deleted succesfully.";
+        bookDAO.delete(bookId);
+        listBooks(message);
+      }
     }
   }
 
