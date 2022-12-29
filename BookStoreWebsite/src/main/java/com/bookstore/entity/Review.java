@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +22,10 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "review", catalog = "bookstoredb")
+@NamedQueries({
+  @NamedQuery(name = "Review.listAll", query = "SELECT r FROM Review r ORDER BY r.reviewTime DESC"),
+  @NamedQuery(name = "Review.countAll", query = "SELECT COUNT(r) FROM Review r")
+})
 public class Review implements java.io.Serializable {
 
   private Integer reviewId;
