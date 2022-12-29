@@ -170,6 +170,12 @@ public class Customer implements java.io.Serializable {
     this.registerDate = registerDate;
   }
 
+  /**
+   * Important NOTE: Do not change the FetchType to EAGER. Keep it LAZY.
+   * Explain: The list customer feature will load all Customer objects 
+   * with associated Review objects
+   * This affects the application's performance
+   */
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
   public Set<Review> getReviews() {
     return this.reviews;

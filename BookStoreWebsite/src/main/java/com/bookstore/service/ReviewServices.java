@@ -79,7 +79,7 @@ public class ReviewServices {
     } else {
       reviewDAO.delete(reviewId);
       message = "The review has been deleted successfully.";
-      listAllReview(message);      
+      listAllReview(message);
     }
   }
 }

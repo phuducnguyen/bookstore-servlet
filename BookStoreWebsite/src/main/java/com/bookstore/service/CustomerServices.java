@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.bookstore.dao.CustomerDAO;
 import com.bookstore.dao.HashGeneratorUtils;
+import com.bookstore.dao.ReviewDAO;
 import com.bookstore.entity.Customer;
 import static com.bookstore.service.CommonUtility.*;
 
@@ -69,9 +70,9 @@ public class CustomerServices {
       String message = "Could not find customer with ID " + customerId;
       showMessageBackend(message, request, response);
     } else {
-      /*  If left blank, the customer's password won't be updated  
-       *  Set password as null to make the password is left blank by default
-       *  Work with the encrypted password feature
+      /*
+       * If left blank, the customer's password won't be updated Set password as null to make the
+       * password is left blank by default Work with the encrypted password feature
        */
       customer.setPassword(null);
       request.setAttribute("customer", customer);
@@ -108,17 +109,32 @@ public class CustomerServices {
     // Get parameters from request
     Integer customerId = Integer.parseInt(request.getParameter("id"));
     Customer customer = customerDAO.get(customerId);
-        
+
     // Delete existed customer or display error if non-exist customer
     if (customer != null) {
+      ReviewDAO reviewDAO = new ReviewDAO();
+      long reviewCount = reviewDAO.countByCustomer(customerId);
+      
+      /**
+       *  Improve feature: Check before deleting the customer
+       *  If there are still reviews or orders associated with her/him on the website
+       *  The admin cannot delete this customer
+       */
+      if (reviewCount == 0) {
+        // The customer can be deleted 
         customerDAO.delete(customerId);
-        
         String message = "The customer has been deleted successfully.";
-        listCustomers(message);         
+        listCustomers(message);
+      } else {
+        // There are reviews posted by the customer, display an error message
+        String message = "Could not delete customer with ID " + customerId
+            + " because he/she posted reviews for books.";
+        showMessageBackend(message, request, response);
+      }
     } else {
-        String message = "Could not find customer with ID " + customerId + ", "
-                + "or it has been deleted by another admin";
-        CommonUtility.showMessageBackend(message, request, response);
+      String message = "Could not find customer with ID " + customerId + ", "
+          + "or it has been deleted by another admin";
+      showMessageBackend(message, request, response);
     }
   }
 
@@ -126,21 +142,21 @@ public class CustomerServices {
     String email = request.getParameter("email");
     Customer existCustomer = customerDAO.findByEmail(email);
     String message = "";
-    
+
     if (existCustomer != null) {
-      message = "Could not register. The email " + email
-          + " is already registered by another customer.";
+      message =
+          "Could not register. The email " + email + " is already registered by another customer.";
       listCustomers(message);
     } else {
       Customer newCustomer = new Customer();
       updateCustomerFieldsFromForm(newCustomer);
-      
+
       customerDAO.create(newCustomer);
-      
+
       message = "You have registered successfully! Thank you.<br/>"
           + "<a href='login'>Click here</a> to login";
     }
-    
+
     showMessageFrontend(message, request, response);
   }
 
@@ -159,13 +175,14 @@ public class CustomerServices {
     if (email != null && !email.equals("")) {
       customer.setEmail(email);
     }
-    
-    System.out.println(password); 
+
+    System.out.println(password);
     if (password != null && !password.equals("")) {
-      /* Use in production 
-       * Password is encrypted using MD5 */
-//      String encryptedPassword = HashGeneratorUtils.generateMD5(password);
-//      customer.setPassword(encryptedPassword);
+      /*
+       * Use in production Password is encrypted using MD5
+       */
+      // String encryptedPassword = HashGeneratorUtils.generateMD5(password);
+      // customer.setPassword(encryptedPassword);
       // For development, test
       customer.setPassword(password);
     }
@@ -174,7 +191,7 @@ public class CustomerServices {
     customer.setAddress(address);
     customer.setCity(city);
     customer.setZipcode(zipCode);
-    customer.setCountry(country);    
+    customer.setCountry(country);
   }
 
   public void showLogin() throws ServletException, IOException {
@@ -185,21 +202,21 @@ public class CustomerServices {
     // Read email and password from the request
     String email = request.getParameter("email");
     String password = request.getParameter("password");
-     
+
     Customer customer = customerDAO.checkLogin(email, password);
-    
+
     if (customer == null) {
       // Store this message in the request attribute
       String message = "Login failed. Please check your email and password.";
       request.setAttribute("message", message);
-      
+
       showLogin();
     } else {
       /* In case the customer has logged in successfully */
       // Set a value in the session attribute here
       HttpSession session = request.getSession();
       session.setAttribute("loggedCustomer", customer);
-      
+
       showCustomerProfile();
     }
   }
@@ -215,11 +232,11 @@ public class CustomerServices {
   public void updateCustomerProfile() throws ServletException, IOException {
     // Retrieve the Customer Object from the session
     Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
-    
+
     // Update current values from the form
     updateCustomerFieldsFromForm(customer);
     customerDAO.update(customer);
-    
+
     showCustomerProfile();
   }
 }
