@@ -240,6 +240,40 @@ public class Book implements java.io.Serializable {
     return averageRating;
   }
   
+  /**
+   * Data structure to display rating stars
+   * Example: 
+   *    Rating 3.0 -> on,on,on,off,off
+   *    Rating 4.5 -> on,on,on,on,half
+   * Status of the star: [on, off, half]
+   * @param averageRating
+   * @return a string of rating stars
+   */
+  @Transient
+  public String getRatingString(float averageRating) {
+    String result = "";
+    char comma = ',';
+    
+    int numberOfStarsOn = (int) averageRating;
+    
+    for (int i = 1; i <= numberOfStarsOn; ++i) {
+      result += "on" + comma;
+    }
+    
+    int nextStar = numberOfStarsOn + 1;
+    
+    if (averageRating > numberOfStarsOn) {
+      result += "half" + comma;
+      nextStar++;
+    }
+    
+    for (int j = nextStar; j <= 5; ++j) {
+      result += "off" + comma;
+    }
+    
+    return result.substring(0, result.length() - 1);
+  }
+  
   @Override
   public int hashCode() {
     return Objects.hash(bookId);
