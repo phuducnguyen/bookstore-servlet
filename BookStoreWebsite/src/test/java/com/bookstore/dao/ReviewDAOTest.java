@@ -30,15 +30,15 @@ public class ReviewDAOTest {
     Customer customer = new Customer();
 
     // Get sample data from database
-    book.setBookId(34); // Effective Java (2nd Edition)
-    customer.setCustomerId(13); // Tom Cruise
+    book.setBookId(36);
+    customer.setCustomerId(13); 
 
     review.setBook(book);
     review.setCustomer(customer);
 
-    review.setHeadline("Effective Java in my experience");
+    review.setHeadline("Headline testing");
     review.setRating(5);
-    review.setComment("Very detail for Java knowledge from Bloch and Joshua");
+    review.setComment("Awesome book!!!");
 
     Review savedReview = reviewDao.create(review);
 

@@ -240,6 +240,13 @@ public class Book implements java.io.Serializable {
     return averageRating;
   }
   
+  @Transient
+  public String getRatingStars() {
+    float averageRating = getAvarageRating();
+    
+    return getRatingString(averageRating);
+  }
+  
   /**
    * Data structure to display rating stars
    * Example: 
