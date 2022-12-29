@@ -31,14 +31,14 @@ public class ReviewDAOTest {
 
     // Get sample data from database
     book.setBookId(36);
-    customer.setCustomerId(13); 
+    customer.setCustomerId(16); 
 
     review.setBook(book);
     review.setCustomer(customer);
 
     review.setHeadline("Headline testing");
-    review.setRating(5);
-    review.setComment("Awesome book!!!");
+    review.setRating(4);
+    review.setComment("Must read book!!!");
 
     Review savedReview = reviewDao.create(review);
 
