@@ -34,7 +34,9 @@
 							<div>
 								<h2><a href="view_book?id=${book.bookId}"> <b>${book.title}</b></a></h2>
 							</div>
-							<div>Rating *****</div>
+							<div>
+								<jsp:directive.include file="book_rating.jsp" />
+							</div>
 							<div>
 								<i>by ${book.author}</i>
 							</div>

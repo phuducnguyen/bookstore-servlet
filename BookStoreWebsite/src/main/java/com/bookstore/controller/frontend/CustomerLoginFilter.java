@@ -21,7 +21,7 @@ public class CustomerLoginFilter extends HttpFilter implements Filter {
   
   // A set of URLs that need authentication
   private static final String[] LOGIN_REQUIRED_URLS = {
-      "/view_profile", "/edit_profile", "/update_profile"
+      "/view_profile", "/edit_profile", "/update_profile", "/write_review"
   };
   public CustomerLoginFilter() {}
 
@@ -52,6 +52,17 @@ public class CustomerLoginFilter extends HttpFilter implements Filter {
     
     // Prevent unauthorized access to the pages that require authentication
     if (!loggedIn && isLoginRequired(requestURL)) {
+      String queryString = httpRequest.getQueryString();
+      String redirectURL = requestURL;
+      
+      // After logged in successfully, the website should redirect to this URL again  
+      if (queryString != null) {
+        redirectURL = redirectURL.concat("?").concat(queryString);
+      }
+      
+      // Use for redirect to previous pages that feature required customer login
+      session.setAttribute("redirectURL", redirectURL);
+      
       String loginPage = "frontend/login.jsp";
       RequestDispatcher dispatcher = httpRequest.getRequestDispatcher(loginPage);
       dispatcher.forward(httpRequest, response);

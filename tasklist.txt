@@ -1,0 +1,15 @@
+Section: Implement Customer Writing Review feature
+Task list:
+- Understand requirement and Design for Customer Writing Review feature
+- Update ReviewDAO class + Unit Tests
+- Create WriteReviewServlet Class
+- Update Book Detail JSP
+- Code Review Form
+- Redirect Customer to Review Form after Login
+- Continue code Review Form
+    + Basic Fields
+    + Implement Rating Stars and Validation
+- Code SubmitReviewServlet and Update ReviewServices
+- Code Review Message Page and Test
+- Code Review Form in READ ONLY mode
+

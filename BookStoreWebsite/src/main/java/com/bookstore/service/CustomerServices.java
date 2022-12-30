@@ -215,9 +215,19 @@ public class CustomerServices {
       /* In case the customer has logged in successfully */
       // Set a value in the session attribute here
       HttpSession session = request.getSession();
+      Object objRedirectURL = session.getAttribute("redirectURL");
+      
       session.setAttribute("loggedCustomer", customer);
 
-      showCustomerProfile();
+      if (objRedirectURL != null) {
+        String redirectURL = (String) objRedirectURL;
+        session.removeAttribute(redirectURL);
+        response.sendRedirect(redirectURL);
+      } else {
+        showCustomerProfile();
+        
+      }
+
     }
   }
 

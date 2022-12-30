@@ -4,9 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${book.title} - Online Books Store</title>
-<link rel="stylesheet" href="css/style.css" >
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>${book.title} - Online Books Store</title>
+	
+	<link rel="stylesheet" href="css/style.css" >
+	
+	<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
@@ -42,7 +45,7 @@
 			<tr>
 				<td><h2><a id="reviews">Customer Reviews</a></h2></td>
 				<td colspan="2" align="center">
-					<button>Write a Customer Review</button>
+					<button id="buttonWriteReview">Write a Customer Review</button>
 				</td>
 			</tr>
 			
@@ -78,5 +81,15 @@
 	</div>
 	
 	<jsp:directive.include file="footer.jsp" />
+	
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#buttonWriteReview").click(function() {
+		// Attribute `book` is stored in the request
+		// Customer Object is stored in the session when logged in
+		window.location = 'write_review?book_id=' + ${book.bookId};			
+	});	
+});
+</script>
 </body>
 </html>
