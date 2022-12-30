@@ -11,14 +11,9 @@
 [X] Create Website's Homepage <br/>
 [X] Create Admin's Homepage <br/>
 [X] Code User Management Module | CRUD <br/>
-[--] Code Category Management Module | CRUD <br/>
-[--] Code Book Management Module | CRUD + Search <br/>
-[--] Code Customer Management Module | CRUD <br/>
-[--] Code Review Management Module | CRUD <br/>
+[x] Code Category Management Module | CRUD <br/>
+[x] Code Book Management Module | CRUD + Search <br/>
+[x] Code Customer Management Module | CRUD <br/>
+[x] Code Review Management Module | CRUD <br/>
 [--] Code Order Management Module | CRUD <br/>
 [--] Authentication for Roles: ADMIN + CUSTOMER.
-
-## Tasks List
-Code CategoryDAO + Unit Tests <br/>
-Implement [List, Create, Edit, Delete] Category feature <<br/>
-Update Website's Home Page <br/>
