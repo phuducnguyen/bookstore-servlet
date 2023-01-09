@@ -1,5 +1,6 @@
 package com.bookstore.service;
 
+import static com.bookstore.util.CommonUtility.*;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -12,7 +13,6 @@ import com.bookstore.dao.ReviewDAO;
 import com.bookstore.entity.Book;
 import com.bookstore.entity.Customer;
 import com.bookstore.entity.Review;
-import static com.bookstore.service.CommonUtility.*;
 
 public class ReviewServices {
   private ReviewDAO reviewDAO;
