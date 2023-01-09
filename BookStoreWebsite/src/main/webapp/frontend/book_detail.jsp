@@ -33,7 +33,7 @@
 				<td valign="top" rowspan="2" width="20%">
 					<h2>$${book.price}</h2>
 					<br/><br/>
-					<button type="submit">Add to Cart</button>
+					<button id="buttonAddToCart">Add to Cart</button>
 				</td>
 			</tr>
 			<tr>
@@ -84,10 +84,14 @@
 	
 <script type="text/javascript">
 $(document).ready(function() {
+	// Attribute `book` is stored in the request
+	// Customer Object is stored in the session when logged in
 	$("#buttonWriteReview").click(function() {
-		// Attribute `book` is stored in the request
-		// Customer Object is stored in the session when logged in
 		window.location = 'write_review?book_id=' + ${book.bookId};			
+	});	
+	
+	$("#buttonAddToCart").click(function() {
+		window.location = 'add_to_cart?book_id=' + ${book.bookId};			
 	});	
 });
 </script>

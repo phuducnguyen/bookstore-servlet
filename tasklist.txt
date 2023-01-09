@@ -1,15 +1,10 @@
-Section: Implement Customer Writing Review feature
+Section: Implement Shopping Cart feature
 Task list:
-- Understand requirement and Design for Customer Writing Review feature
-- Update ReviewDAO class + Unit Tests
-- Create WriteReviewServlet Class
-- Update Book Detail JSP
-- Code Review Form
-- Redirect Customer to Review Form after Login
-- Continue code Review Form
-    + Basic Fields
-    + Implement Rating Stars and Validation
-- Code SubmitReviewServlet and Update ReviewServices
-- Code Review Message Page and Test
-- Code Review Form in READ ONLY mode
-
+- Understand requirement and Design for Shopping Cart
+- Code ShoppingCart Class
+- Implement View Shopping Cart feature
+- Implement Add Book to Cart feature
+- Implement Remove Book from Cart
+- Implement Update Book from Cart
+- Implement Clear Cart feature
+- Update Search Book feature for Shopping Cart

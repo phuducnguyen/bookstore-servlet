@@ -1,5 +1,6 @@
 package com.bookstore.service;
 
+import static com.bookstore.util.CommonUtility.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -16,7 +17,6 @@ import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
-import static com.bookstore.service.CommonUtility.*;
 
 public class BookServices {
   private BookDAO bookDAO;
