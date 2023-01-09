@@ -32,9 +32,5 @@ public class UpdateCartServlet extends HttpServlet {
     
     String cartPage = request.getContextPath().concat("/view_cart");
     response.sendRedirect(cartPage);
-    
-//    response.getWriter().println(Arrays.asList(arrayBookIds));
-//    response.getWriter().println(Arrays.asList(arrayQuantities));
   }
-
 }

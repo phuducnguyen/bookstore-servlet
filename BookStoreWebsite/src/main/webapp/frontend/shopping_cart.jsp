@@ -78,9 +78,11 @@
 				</div>
 				<div>
 					<table class="normal">
+						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td></td>
 							<td><button type="submit">Update</button></td>
+							<td><button id="clearCart" type="button">Clear Cart</button>
 							<td><a href="${pageContext.request.contextPath}/">Continue Shopping</a></td>	
 							<td><a href="">Checkout</a>					
 						</tr>
@@ -114,6 +116,10 @@
 						},
 					</c:forEach>
 				}
+			});
+			
+			$("#clearCart").click(function() {
+				window.location = "clear_cart";
 			});
 		});
 	</script>
