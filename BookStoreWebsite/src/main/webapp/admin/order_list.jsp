@@ -42,7 +42,7 @@
 				<td>${order.orderId}</td>
 				<td>${order.customer.fullname}</td>
 				<td>${order.bookCopies}</td>
-				<td><fmt:formatNumber value="${order.total}" type="currency" currencySymbol="$"/></td>
+				<td><fmt:formatNumber value="${order.total}" type="currency" currencySymbol="$" /></td>
 				<td>${order.paymentMethod}</td>
 				<td>${order.status}</td>
 				<td>${order.orderDate}</td>
