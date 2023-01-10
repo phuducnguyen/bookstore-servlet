@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "book_order", catalog = "bookstoredb")
@@ -160,6 +161,17 @@ public class BookOrder implements java.io.Serializable {
 
   public void setOrderDetails(Set<OrderDetail> orderDetails) {
     this.orderDetails = orderDetails;
+  }
+  
+  @Transient
+  public int getBookCopies() {
+    int total = 0;
+    
+    for (OrderDetail orderDetail : orderDetails) {
+      total += orderDetail.getQuantity();
+    }
+    
+    return total;
   }
 
   @Override
