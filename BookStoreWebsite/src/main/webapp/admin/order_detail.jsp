@@ -83,8 +83,8 @@
 				<td>${orderDetail.book.title}</td>
 				<td>${orderDetail.book.author}</td>
 				<td><fmt:formatNumber value="${orderDetail.book.price}" type="currency" currencySymbol="$" /></td>
-				<td>${orderDetail.book.quantity}</td>
-				<td><fmt:formatNumber value="${orderDetail.book.subtotal}" type="currency" currencySymbol="$" /></td>
+				<td>${orderDetail.quantity}</td>
+				<td><fmt:formatNumber value="${orderDetail.subtotal}" type="currency" currencySymbol="$" /></td>
 			</tr>
 			</c:forEach>
 			
@@ -101,10 +101,12 @@
 			</tr>			
 		</table>
 	</div>
-	<div align="center"></div>
+	<div align="center">
 		<br/>
 		<a href="">Edit this Order</a>
+		&emsp;&emsp;&emsp;&emsp;
 		<a href="">Delete this Order</a>
+	</div>
 	
 	<jsp:directive.include file="footer.jsp" />
 	

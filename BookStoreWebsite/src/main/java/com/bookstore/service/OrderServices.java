@@ -33,8 +33,13 @@ public class OrderServices {
     Integer orderId = Integer.parseInt(request.getParameter("id"));
     
     BookOrder order = orderDAO.get(orderId);
-    request.setAttribute("order", order);
     
-    forwardToPage("order_detail.jsp", request, response);
+    if (order != null) {
+      request.setAttribute("order", order);
+      forwardToPage("order_detail.jsp", request, response);
+    } else {
+      String message = "Could not find order with ID " + orderId;
+      showMessageBackend(message, request, response);
+    }    
   }
 }
