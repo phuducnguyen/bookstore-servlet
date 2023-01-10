@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +23,10 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "book_order", catalog = "bookstoredb")
+@NamedQueries({
+  @NamedQuery(name = "BookOrder.findAll", query = "SELECT bo FROM BookOrder bo ORDER BY bo.orderDate DESC"),
+  @NamedQuery(name = "BookOrder.countAll", query = "SELECT COUNT(*) FROM BookOrder")
+})
 public class BookOrder implements java.io.Serializable {
 
   private Integer orderId;
@@ -158,8 +164,7 @@ public class BookOrder implements java.io.Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(customer, orderDate, orderDetails, orderId, paymentMethod, recipientName,
-        recipientPhone, shippingAddress, status, total);
+    return Objects.hash(orderId);
   }
 
   @Override
@@ -171,14 +176,7 @@ public class BookOrder implements java.io.Serializable {
     if (getClass() != obj.getClass())
       return false;
     BookOrder other = (BookOrder) obj;
-    return Objects.equals(customer, other.customer) && Objects.equals(orderDate, other.orderDate)
-        && Objects.equals(orderDetails, other.orderDetails)
-        && Objects.equals(orderId, other.orderId)
-        && Objects.equals(paymentMethod, other.paymentMethod)
-        && Objects.equals(recipientName, other.recipientName)
-        && Objects.equals(recipientPhone, other.recipientPhone)
-        && Objects.equals(shippingAddress, other.shippingAddress)
-        && Objects.equals(status, other.status)
-        && Float.floatToIntBits(total) == Float.floatToIntBits(other.total);
+    return Objects.equals(orderId, other.orderId);
   }
+
 }

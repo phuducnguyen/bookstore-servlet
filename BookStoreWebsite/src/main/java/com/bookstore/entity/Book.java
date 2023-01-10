@@ -95,8 +95,8 @@ public class Book implements java.io.Serializable {
     this.orderDetails = orderDetails;
   }
 
-  @Column(name = "book_id", unique = true, nullable = false)
   @Id
+  @Column(name = "book_id", unique = true, nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   public Integer getBookId() {
     return this.bookId;
@@ -213,7 +213,7 @@ public class Book implements java.io.Serializable {
     this.reviews = reviews;
   }
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
   public Set<OrderDetail> getOrderDetails() {
     return this.orderDetails;
   }
