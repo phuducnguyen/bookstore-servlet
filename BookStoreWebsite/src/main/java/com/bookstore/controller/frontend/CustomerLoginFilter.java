@@ -22,7 +22,7 @@ public class CustomerLoginFilter extends HttpFilter implements Filter {
   // A set of URLs that need authentication
   private static final String[] LOGIN_REQUIRED_URLS = {
       "/view_profile", "/edit_profile", "/update_profile", "/write_review",
-      "/checkout", "place_order"
+      "/checkout", "place_order", "view_orders", "/show_order_detail"
   };
   public CustomerLoginFilter() {}
 
