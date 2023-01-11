@@ -35,9 +35,10 @@ public class ShoppingCart {
     return total;
   }
 
-  public double getTotalAmount() {
+  public float getTotalAmount() {
+    float total = 0.0f;
+
     Iterator<Book> iterator = cart.keySet().iterator();
-    double total = 0.0f;
 
     while (iterator.hasNext()) {
       Book book = iterator.next();
