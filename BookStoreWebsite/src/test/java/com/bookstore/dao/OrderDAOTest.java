@@ -1,6 +1,7 @@
 package com.bookstore.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
@@ -154,6 +155,27 @@ public class OrderDAOTest {
     BookOrder order = orderDAO.get(orderId);
     
     assertEquals(1, order.getOrderDetails().size());
+  }
+  
+  @Test
+  public void testGetByIdAndCustomerNull() {
+    Integer orderId = 20;
+    Integer customerId = 81;
+    
+    BookOrder order = orderDAO.get(orderId, customerId);
+    
+    assertNull(order);
+  }
+  
+  @Test
+  public void testGetByIdAndCustomerNotNull() {
+    // Query: select order_id, customer_id from book_order;
+    Integer orderId = 33;
+    Integer customerId = 14;
+    
+    BookOrder order = orderDAO.get(orderId, customerId);
+    
+    assertNotNull(order);
   }
 
   @Test

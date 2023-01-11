@@ -129,14 +129,12 @@ public class OrderServices {
   public void showOrderDetailForCustomer() throws ServletException, IOException {
     Integer orderId = Integer.parseInt(request.getParameter("id"));
     
-    BookOrder order = orderDAO.get(orderId);
+    HttpSession session = request.getSession();
+    Customer customer = (Customer) session.getAttribute("loggedCustomer");
     
-    if (order != null) {
-      request.setAttribute("order", order);
-      forwardToPage("frontend/order_detail.jsp", request, response);
-    } else {
-      String message = "Could not find order with ID " + orderId;
-      showMessageBackend(message, request, response);
-    }    
+    BookOrder order = orderDAO.get(orderId, customer.getCustomerId());
+    request.setAttribute("order", order);
+    
+    forwardToPage("frontend/order_detail.jsp", request, response);
   }
 }
