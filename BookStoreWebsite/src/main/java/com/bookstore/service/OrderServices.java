@@ -113,6 +113,28 @@ public class OrderServices {
     String message = "Thank you. Your order has been received."
         + "We will deliver your books within a few days.";
     
-    forwardToPage("frontend/message.jsp", message, request, response);
+    showMessageFrontend(message, request, response);
+  }
+
+  public void listOrderByCustomer() throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    Customer customer = (Customer) session.getAttribute("loggedCustomer");
+    List<BookOrder> listOrders = orderDAO.listByCustomer(customer.getCustomerId());
+    
+    request.setAttribute("listOrders", listOrders);
+    
+    forwardToPage("frontend/order_list.jsp", request, response);
+  }
+
+  public void showOrderDetailForCustomer() throws ServletException, IOException {
+    Integer orderId = Integer.parseInt(request.getParameter("id"));
+    
+    HttpSession session = request.getSession();
+    Customer customer = (Customer) session.getAttribute("loggedCustomer");
+    
+    BookOrder order = orderDAO.get(orderId, customer.getCustomerId());
+    request.setAttribute("order", order);
+    
+    forwardToPage("frontend/order_detail.jsp", request, response);
   }
 }

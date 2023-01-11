@@ -1,6 +1,7 @@
 package com.bookstore.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
@@ -155,6 +156,27 @@ public class OrderDAOTest {
     
     assertEquals(1, order.getOrderDetails().size());
   }
+  
+  @Test
+  public void testGetByIdAndCustomerNull() {
+    Integer orderId = 20;
+    Integer customerId = 81;
+    
+    BookOrder order = orderDAO.get(orderId, customerId);
+    
+    assertNull(order);
+  }
+  
+  @Test
+  public void testGetByIdAndCustomerNotNull() {
+    // Query: select order_id, customer_id from book_order;
+    Integer orderId = 33;
+    Integer customerId = 14;
+    
+    BookOrder order = orderDAO.get(orderId, customerId);
+    
+    assertNotNull(order);
+  }
 
   @Test
   public void testDeleteObject() {
@@ -184,6 +206,25 @@ public class OrderDAOTest {
     
     assertTrue(listOrders.size() > 0);
   }
+  
+  
+  @Test
+  public void testListByCustomerNoOrders() {
+    Integer customerId = 81;    // Not available
+    List<BookOrder> listOrders = orderDAO.listByCustomer(customerId);
+    
+    assertTrue(listOrders.isEmpty());
+  }
+  
+  @Test
+  public void testListByCustomerHaveOrders() {
+    // Query: select customer_id from book_order;
+    Integer customerId = 12;    
+    List<BookOrder> listOrders = orderDAO.listByCustomer(customerId);
+    
+    assertTrue(listOrders.size() > 0);
+  }
+  
 
   @Test
   public void testCount() {
