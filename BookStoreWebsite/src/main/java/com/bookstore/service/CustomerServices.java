@@ -1,15 +1,16 @@
 package com.bookstore.service;
 
-import static com.bookstore.util.CommonUtility.*;
+import static com.bookstore.util.CommonUtility.forwardToPage;
+import static com.bookstore.util.CommonUtility.showMessageBackend;
+import static com.bookstore.util.CommonUtility.showMessageFrontend;
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.bookstore.dao.CustomerDAO;
-import com.bookstore.dao.HashGeneratorUtils;
+import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.ReviewDAO;
 import com.bookstore.entity.Customer;
 
@@ -114,22 +115,30 @@ public class CustomerServices {
     if (customer != null) {
       ReviewDAO reviewDAO = new ReviewDAO();
       long reviewCount = reviewDAO.countByCustomer(customerId);
-      
+
       /**
-       *  Improve feature: Check before deleting the customer
-       *  If there are still reviews or orders associated with her/him on the website
-       *  The admin cannot delete this customer
+       * Improve feature: Check exit before deleting the customer 
+       * If there are still reviews or orders associated with customer 
+       * Administrator cannot delete this customer
        */
-      if (reviewCount == 0) {
-        // The customer can be deleted 
-        customerDAO.delete(customerId);
-        String message = "The customer has been deleted successfully.";
-        listCustomers(message);
-      } else {
+      if (reviewCount > 0) {
         // There are reviews posted by the customer, display an error message
         String message = "Could not delete customer with ID " + customerId
             + " because he/she posted reviews for books.";
         showMessageBackend(message, request, response);
+      } else {
+        OrderDAO orderDAO = new OrderDAO();
+        long orderCount = orderDAO.countByCustomer(customerId);
+        
+        if (orderCount > 0) {
+          String message = "Could not delete customer with ID " + customerId
+              + "because he/she placed orders.";
+          showMessageBackend(message, request, response);
+        } else {
+          customerDAO.delete(customerId);
+          String message = "The customer has been deleted successfully.";
+          listCustomers(message);          
+        }
       }
     } else {
       String message = "Could not find customer with ID " + customerId + ", "
@@ -216,7 +225,7 @@ public class CustomerServices {
       // Set a value in the session attribute here
       HttpSession session = request.getSession();
       Object objRedirectURL = session.getAttribute("redirectURL");
-      
+
       session.setAttribute("loggedCustomer", customer);
 
       if (objRedirectURL != null) {
@@ -225,7 +234,7 @@ public class CustomerServices {
         response.sendRedirect(redirectURL);
       } else {
         showCustomerProfile();
-        
+
       }
 
     }
