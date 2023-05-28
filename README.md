@@ -1,4 +1,5 @@
 # bookstore-servlet
+Good commit "If applied, this commit will ..."
 
 ## SECTION
 [X] Client's Requirement Analysis <br/>
